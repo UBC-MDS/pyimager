@@ -13,15 +13,18 @@ pip install -i https://test.pypi.org/simple/ pyimager
 ```
 
 ### Features
-- TODO
+- `circropper`: This function will crop the input image into circle. This can be useful when you want to make icons from images. 
 
 ### Dependencies
 
-- TODO
+- numpy
+- PIL
 
 ### Usage
 
-- TODO
+``` python
+from pyimager import pyimager
+```
 
 ### Documentation
 The official documentation is hosted on Read the Docs: <https://pyimager.readthedocs.io/en/latest/>
