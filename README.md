@@ -41,7 +41,7 @@ blur, emboss, and colorize the image.
 
 ## Our package in python ecosystem:
 
-There are existing packages to process images. For example `skimage`, `PIL` are popular packages that can be used resize, cut images, and apply filters.  
+There are existing packages to process images. For example `skimage`, `PIL` are popular packages that can be used to resize, cut images and apply filters.  
 
 ## Dependencies:
 - Python 3.6 or greater
