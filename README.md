@@ -38,6 +38,7 @@ pip install -i https://test.pypi.org/simple/ pyimager
 - `reduce_dimensions`: This function reduces the dimension of a given image by removing vertical and horizontal seams.
 - `img_filter`: This function applies a filter to a given image, altering the visual aesthetic. This includes options to 
 blur, emboss, and colorize the image. 
+- `redu_color`: This function reduces number of colors appearing on the image and have cartoonized color effect.
 
 ## Dependencies:
 - Python 3.6 or greater
