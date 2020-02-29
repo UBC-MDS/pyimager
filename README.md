@@ -21,7 +21,11 @@ To contribute to this project, you must adhere to the terms outlined in our [Cod
 
 ## Overview:
 
-`pyimager` is a python package that provides a quick and easy way to do some simple image processings and editings. By input the path of the image, users can run functions from `pyimager` to reduce the size of the image, crop image into a circle, reduce image colors, or apply cool effect filters.
+Want to edit an image in the shell instead of GUI applications? `pyimager` is a python package that provides a quick and easy way to do some simple image processings and graphic editings. Based on the main needs of graphic editings, the package integrates four functionalities. It includes reduce the size of the image, crop image into a circle, reduce image colors, and apply cool effect filters. By input the path of the image, users can run any of these functions with one line of code to get a desired or interesting images.
+
+## Our package in python ecosystem:
+
+There are existing packages to process images. For example `scikit-image`[here](https://scikit-image.org/docs/stable/auto_examples/), `PIL`[here](https://pillow.readthedocs.io/en/stable/handbook/index.html) are popular packages that can be used to resize, cut images and apply filters. The goal of this package is either to utilize packages like `matplotlib`, `PIL` to improve the pre-existing functions or to re-implement code manually with `numpy`. Also it automates the image editing process, producing the altered image by one line of code.
 
 ## Installation:
 
@@ -37,11 +41,8 @@ pip install -i https://test.pypi.org/simple/ pyimager
 - `reduce_dimensions`: This function reduces the dimension of a given image by removing vertical and horizontal seams.
 - `img_filter`: This function applies a filter to a given image, altering the visual aesthetic. This includes options to 
 blur, emboss, and colorize the image. 
-- `redu_color`: This function reduces number of colors appearing on the image to have cartoonized color effect.
+- `reducolor`: This function reduces number of colors appearing on the image to have cartoonized color effect.
 
-## Our package in python ecosystem:
-
-There are existing packages to process images. For example `skimage`, `PIL` are popular packages that can be used to resize, cut images and apply filters.  
 
 ## Dependencies:
 - Python 3.6 or greater
