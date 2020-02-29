@@ -11,9 +11,18 @@ pyimager contains functions to process and edit images
 ```
 pip install -i https://test.pypi.org/simple/ pyimager
 ```
+### Overview:
+
+`pyimager` is a python package that provides a quick and easy way to do some simple image processings and editings. By input the path of the image, users can run functions from `pyimager` to reduce the size of the image, crop image into a circle, reduce image colors, or apply cool effect filters. 
 
 ### Features
-- `circropper`: This function will crop the input image into circle. This can be useful when you want to make icons from images. 
+
+- `circropper`: This function will crop the input image into a circle. This can be useful when you want to make icons from images. 
+- ``
+
+### Our package in the python ecosystem
+
+
 
 ### Dependencies
 
