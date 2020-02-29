@@ -1,12 +1,29 @@
-## pyimager 
+# pyimager 
 
 ![](https://github.com/UBC-MDS/pyimager/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/UBC-MDS/pyimager/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/pyimager) ![Release](https://github.com/UBC-MDS/pyimager/workflows/Release/badge.svg)
 
 [![Documentation Status](https://readthedocs.org/projects/pyimager/badge/?version=latest)](https://pyimager.readthedocs.io/en/latest/?badge=latest)
 
-pyimager contains functions to process and edit images
+The pyimager package contains functions that aid in image manipulation and processing.
 
-### Installation:
+This package was developed as a project for DSCI-524.
+
+## Creators
+
+| Name | GitHub |
+|---|---|
+| Keanna Knebel| [Keanna-K](https://github.com/Keanna-K) |
+| Mohammed Salama | [dataubc](https://github.com/dataubc) |
+| Zhengyang (Zoe) Pan | [zoepan00](https://github.com/zoepan00) |
+| Haoyu (Clara) Su | [clsu22](https://github.com/clsu22) |
+
+To contribute to this project, you must adhere to the terms outlined in our [Code of Conduct.](https://github.com/UBC-MDS/pyimager/blob/master/CONDUCT.md)
+
+## Overview:
+
+## Installation:
+
+In your console, type:
 
 ```
 pip install -i https://test.pypi.org/simple/ pyimager
@@ -15,27 +32,25 @@ pip install -i https://test.pypi.org/simple/ pyimager
 
 `pyimager` is a python package that provides a quick and easy way to do some simple image processings and editings. By input the path of the image, users can run functions from `pyimager` to reduce the size of the image, crop image into a circle, reduce image colors, or apply cool effect filters. 
 
-### Features
+## Functions:
 
-- `circropper`: This function will crop the input image into a circle. This can be useful when you want to make icons from images. 
-- ``
+- `circropper`: This function crops the input image into a circle. This can be useful when you want to make icons from images. 
+- `reduce_dimensions`: This function reduces the dimension of a given image by removing vertical and horizontal seams.
+- `img_filter`: This function applies a filter to a given image, altering the visual aesthetic. This includes options to 
+blur, emboss, and colorize the image. 
 
-### Our package in the python ecosystem
-
-
-
-### Dependencies
-
+## Dependencies:
+- Python 3.6 or greater
 - numpy
 - PIL
 
-### Usage
+## Usage:
 
 ``` python
 from pyimager import pyimager
 ```
 
-### Documentation
+## Documentation
 The official documentation is hosted on Read the Docs: <https://pyimager.readthedocs.io/en/latest/>
 
 ### Credits
