@@ -21,6 +21,8 @@ To contribute to this project, you must adhere to the terms outlined in our [Cod
 
 ## Overview:
 
+`pyimager` is a python package that provides a quick and easy way to do some simple image processings and editings. By input the path of the image, users can run functions from `pyimager` to reduce the size of the image, crop image into a circle, reduce image colors, or apply cool effect filters.
+
 ## Installation:
 
 In your console, type:
@@ -28,9 +30,6 @@ In your console, type:
 ```
 pip install -i https://test.pypi.org/simple/ pyimager
 ```
-### Overview:
-
-`pyimager` is a python package that provides a quick and easy way to do some simple image processings and editings. By input the path of the image, users can run functions from `pyimager` to reduce the size of the image, crop image into a circle, reduce image colors, or apply cool effect filters. 
 
 ## Functions:
 
@@ -38,7 +37,11 @@ pip install -i https://test.pypi.org/simple/ pyimager
 - `reduce_dimensions`: This function reduces the dimension of a given image by removing vertical and horizontal seams.
 - `img_filter`: This function applies a filter to a given image, altering the visual aesthetic. This includes options to 
 blur, emboss, and colorize the image. 
-- `redu_color`: This function reduces number of colors appearing on the image and have cartoonized color effect.
+- `redu_color`: This function reduces number of colors appearing on the image to have cartoonized color effect.
+
+## Our package in python ecosystem:
+
+There are existing packages to process images. For example `skimage`, `PIL` are popular packages that can be used resize, cut images, and apply filters.  
 
 ## Dependencies:
 - Python 3.6 or greater
