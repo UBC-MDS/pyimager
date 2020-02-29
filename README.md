@@ -58,5 +58,9 @@ from pyimager import pyimager
 ## Documentation
 The official documentation is hosted on Read the Docs: <https://pyimager.readthedocs.io/en/latest/>
 
+## Package in R
+
+We have package with same functionalities in R `rimager`. See [here](https://github.com/UBC-MDS/rimager)  
+
 ### Credits
 This package was created with Cookiecutter and the UBC-MDS/cookiecutter-ubc-mds project template, modified from the [pyOpenSci/cookiecutter-pyopensci](https://github.com/pyOpenSci/cookiecutter-pyopensci) project template and the [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage).
