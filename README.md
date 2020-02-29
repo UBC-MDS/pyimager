@@ -1,6 +1,6 @@
 ## pyimager 
 
-![](https://github.com/dataubc/pyimager/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/dataubc/pyimager/branch/master/graph/badge.svg)](https://codecov.io/gh/dataubc/pyimager) ![Release](https://github.com/dataubc/pyimager/workflows/Release/badge.svg)
+![](https://github.com/UBC-MDS/pyimager/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/UBC-MDS/pyimager/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/pyimager) ![Release](https://github.com/UBC-MDS/pyimager/workflows/Release/badge.svg)
 
 [![Documentation Status](https://readthedocs.org/projects/pyimager/badge/?version=latest)](https://pyimager.readthedocs.io/en/latest/?badge=latest)
 
