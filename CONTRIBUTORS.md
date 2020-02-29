@@ -5,7 +5,7 @@
 
 * Mohammed Salama <mmohamme@ualberta.ca>
 * Keanna Knebel <keanna.knebel@gmail.com>
-* Zhengyang (Zoe) Pan <>
+* Zhengyang (Zoe) Pan <zoe.pan00@outlook.com>
 * Haoyu (Clara) Su <>
 
 ## Contributors
