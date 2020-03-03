@@ -95,6 +95,8 @@ def img_filter(input_path, filter_type, strength):
     moderate blured effect.
     """
    
+class StyleException(Exception):
+    pass
 
 def reducolor(style, input_path, output_path=None):
     '''
@@ -142,9 +144,10 @@ def reducolor(style, input_path, output_path=None):
         new_img[:, :, 1] = green
         new_img[:, :, 2] = blue
     else:
-        raise Exception('Please enter valid style code.\n 0 for black and white color, 1 for eight color scales')
+        raise StyleException('Please enter valid style code.\n 0 for black and white color, 1 for eight color scales')
     
     if output_path is not None:
-       imsave(f'{output_path}', new_img) 
+       imsave(f'{output_path}', new_img)
+       print(f'New image saved in {output_path}')
     
     return new_img
