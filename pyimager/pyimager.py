@@ -60,6 +60,66 @@ def reduce_dimensions(input_file, output_file, width, height):
     current folder.
     """
 
+    import numpy as np
+    from scipy.ndimage.filters import convolve
+    import matplotlib.pyplot as plt
+    image = plt.imread("mandrill.jpg")
+
+    new_width = 200
+    new_height = 280
+
+    def pyimager(input_file,output_file,new_width,new_height):
+        image = plt.imread(input_file)
+        width = image.shape[1] 
+        height = image.shape[0]
+        for i in range(0,(width-new_width)):
+
+            dx = np.array([-1, 0, 1])[None, :, None]
+            dy = np.array([-1, 0, 1])[:, None, None]    
+            energy_img = convolve(image, dx)**2 + convolve(image, dy)**2
+
+            v_seam = np.zeros(energy_img.shape[0])
+            lin_inds = np.array(v_seam)+np.arange(image.shape[0])*image.shape[1]
+            new_image = np.zeros(
+                (height, image.shape[1]-1, image.shape[-1]), dtype=image.dtype) 
+            for j in range(image.shape[-1]):
+                temp = np.delete(image[:, :, j], lin_inds.astype(int))
+                temp = np.reshape(temp, (height, image.shape[1]-1))
+                new_image[:, :, j] = temp
+            image=new_image
+
+
+        width = image.shape[1] 
+        height = image.shape[0]
+
+        for i in range(0,(height-new_height)):
+            image= np.transpose(image, (1, 0, 2)) 
+            dx = np.array([-1, 0, 1])[None, :, None]
+            dy = np.array([-1, 0, 1])[:, None, None]    
+            energy_img = convolve(image, dx)**2 + convolve(image, dy)**2
+
+            h_seam = np.zeros(energy_img.shape[0])
+            lin_inds = np.array(h_seam)+np.arange(image.shape[0])*image.shape[1]
+            new_image = np.zeros(
+                (width, image.shape[1]-1, image.shape[-1]), dtype=image.dtype) 
+            for c in range(image.shape[-1]):
+                temp = np.delete(image[:, :, c], lin_inds.astype(int))
+                temp = np.reshape(temp, (width, image.shape[1]-1))
+                new_image[:, :, c] = temp
+            image=np.transpose(new_image,(1, 0, 2))
+            
+        assert(image.shape[0] ==new_height)
+        assert(image.shape[1] ==new_width)
+            
+        plt.imsave(output_file, image)
+        return(image)
+
+    # examples : just for test will be deleted later      
+    r = pyimager("mandrill.jpg","images/reduced.jpg",210,200)
+    print(r.shape[0])
+    print(r.shape[1])
+
+
 def img_filter(input_path, filter_type, strength):
 	"""  
     Applies a filter to a given image to edit the visual aesthetic. 
