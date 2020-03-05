@@ -3,9 +3,9 @@ from PIL import Image, ImageDraw
 from matplotlib.image import imsave
 import matplotlib.pyplot as plt 
 
-def circropper(input_path, output_path):
+def circropper(input_path, output_path, margin):
     """
-    Crops an image into the circle shape.
+    Crops an image into a circle and leave some margin as you defined 
 
     Parameters:
     -----------
@@ -13,22 +13,26 @@ def circropper(input_path, output_path):
         The file path of the image to be cropped
     output_path: string
         The file path for cropped image 
-    
+    margin: float
+        The distance between circle boundary and the original image boundary
+
     Examples:
     ---------
-    >>> from pyimager import pyimager
-    >>> pyimager.circropper("bear.jpg", "result.png")
-    A file named "result.png" will be generated in the current folder.
+    >>> from pyimager import circropper
+    >>> circropper("bear.jpg", "result.png", 0)
+    A file named "result.png" will be generated in the 
+    designated folder.
     """
+
     # Read in and convert image to np.array
     img=Image.open(input_path).convert("RGB")
     imgArray=np.array(img)
-    height,weight=img.size
+    height,width=img.size
 
     # Create circle mask layer and crop 
     mask = Image.new('L', img.size,0)
     draw = ImageDraw.Draw(mask)
-    draw.pieslice([0,0,height,weight],0,360,fill=255)
+    draw.pieslice([margin,margin,height-margin,width-margin],0,360,fill=255)
     maskArray=np.array(mask)
     imgArray=np.dstack((imgArray,maskArray))
 
@@ -112,7 +116,7 @@ def reducolor(style, input_path, output_path=None):
 
     Returns:
     --------
-    numpy.ndarray of the image
+    numpy.ndarray of the image and an image saved in the designated path 
     
     Examples:
     ---------
