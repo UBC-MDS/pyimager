@@ -29,6 +29,13 @@ def circropper(input_path, output_path, margin):
     imgArray=np.array(img)
     height,width=img.size
 
+    try:
+        if margin > min(height/2, width/2):
+            raise ValueError("margin is out of scope")
+    except ValueError as e:
+        print("Invalid margin value. margin must be smaller than half of the min(height/2, width/2)")
+        raise e
+
     # Create circle mask layer and crop 
     mask = Image.new('L', img.size,0)
     draw = ImageDraw.Draw(mask)
