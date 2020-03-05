@@ -2,6 +2,8 @@ import numpy as np
 from PIL import Image, ImageDraw
 from matplotlib.image import imsave
 import matplotlib.pyplot as plt 
+from scipy.ndimage.filters import convolve
+import matplotlib.pyplot as plt
 
 def circropper(input_path, output_path, margin):
     """
@@ -38,14 +40,6 @@ def circropper(input_path, output_path, margin):
 
     # Output image 
     Image.fromarray(imgArray).save(output_path)
-
-
-
-
-import numpy as np
-from scipy.ndimage.filters import convolve
-import matplotlib.pyplot as plt
-
 
 def reduce_dimensions(input_file,output_file,new_width,new_height):
     """  
