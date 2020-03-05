@@ -15,6 +15,10 @@ def circropper(input_path, output_path, margin):
         The file path for cropped image 
     margin: float
         The distance between circle boundary and the original image boundary
+    
+    Returns:
+    --------
+        A numpy array of cropped image
 
     Examples:
     ---------
