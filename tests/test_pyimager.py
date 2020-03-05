@@ -4,19 +4,22 @@ import os
 import pytest
 from pyimager.pyimager import *
 
-fname = os.path.join(os.path.dirname(__file__), './tests/imgs/milad.jpg')
+input_path = "./tests/milad.jpg"
+def test_circropper_output():
+    img = Image.open(input_path).convert("RGB")
+    imgArray_1 = np.array(img)
+    imgArray_2 = circropper(input_path, "result.png", 0)
+    assert imgArray_1.shape[0] == imgArray_2.shape[0] 
+    assert imgArray_1.shape[1] == imgArray_2.shape[1] 
+    assert imgArray_1.shape[2] == imgArray_2.shape[2]-1
 
-def test_inputs():
-    with pytest.raises(TypeError):
-        circropper(18, 20, 10) # Not a string for the file path
-    with pytest.raises(TypeError):
-        circropper(fname, "result.png", "one") # Not a valid margin value
-
-    with pytest.raises(ValueError):
-        circropper(fname, "result.png", 500) # margin value is out of scope 
-
-    with pytest.raises(FileNotFoundError):
-        circropper("./tests/imgs/Path.jpg", "result.png", 10) # Incorrect directory/file not in location
+def test_circropper_input_value():
+    try:
+        imgArray_2 = circropper(input_path, "result.png", 1000)
+    except ValueError:
+        pass
+    else:
+        print("not error happens")
 
 def test_stype():
     img_array = reducolor(0, 'tests/mandrill.jpg')
@@ -31,3 +34,4 @@ def test_stype():
         pass
     else:
         assert False, f'Should not allow code other than 0 and 1 and raise StyleException'
+    
