@@ -2,7 +2,7 @@
 import sys
 import os
 import pytest
-from pyimager import circropper, reducolor
+from pyimager.pyimager import *
 
 fname = os.path.join(os.path.dirname(__file__), './tests/imgs/milad.jpg')
 
