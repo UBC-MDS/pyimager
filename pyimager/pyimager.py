@@ -115,7 +115,7 @@ def reducolor(style, input_path, output_path=None):
 
     Returns:
     --------
-    numpy.ndarray of the image
+    numpy.ndarray of the image and an image saved in the designated path 
     
     Examples:
     ---------
