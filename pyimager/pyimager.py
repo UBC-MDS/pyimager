@@ -45,6 +45,7 @@ def circropper(input_path, output_path, margin):
 
     # Output image 
     Image.fromarray(imgArray).save(output_path)
+    return imgArray
 
 def reduce_dimensions(input_file, output_file, width, height):
 	"""  
