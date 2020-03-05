@@ -18,7 +18,7 @@ def circropper(input_path, output_path, margin):
     ---------
     >>> from pyimager import circropper
     >>> circropper("bear.jpg", "result.png", 0)
-    A file named "result.png" will be generated in the your
+    A file named "result.png" will be generated in the 
     designated folder.
     """
 
