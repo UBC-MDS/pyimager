@@ -1,1 +1,3 @@
-.. include:: ../CONTRIBUTORS.rst
+contributors
+*****************
+.. include:: ../contributors.rst

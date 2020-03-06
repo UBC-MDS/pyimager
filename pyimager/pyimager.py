@@ -132,13 +132,12 @@ def reduce_dimensions(input_file,output_file,new_height,new_width):
 
 
 
-def img_filter(input_path, filter_type, strength):
-	"""  
+def img_filter(input_path, filter_type, strength, output_path=None):
+    """  
     Applies a filter to a given image to edit the visual aesthetic. 
 
-    The filter types include 'blur', 'emboss', and 'grayscale'; where
-    blur blends neighboring pixels, emboss creates a '3D like' impression, 
-    and grayscale returns a black and white image. 
+    The filter types include 'blur' and 'sharpen'; where
+    blur blends neighboring pixels and sharpen enhances edges. 
     The strength of the filter indicates how much of effect is apllied
     to the image; where 0 is no effect and 1 is very strong effect.
         
@@ -148,9 +147,12 @@ def img_filter(input_path, filter_type, strength):
         path to the input image
     filter_type : str
         filter to be applied to the input image
-        options: 'blur', 'emboss', 'grayscale' 
+        options: 'blur', 'sharpen'
     strength: int or float (0 to 1)
         the strength of the selected filter effect
+    output_path: str or None (default = None)
+        path to the modified output image file; 
+        if None, the image will not be saved to a file
 
     Returns
     -------
@@ -161,9 +163,72 @@ def img_filter(input_path, filter_type, strength):
     ---------
     >>> from pyimager import pyimager
     >>> pyimager.img_filter("bear.jpg", "blur", 0.4)
-    An array of pixels resulting in an image the same size as "bear.jpg" with a 
+    An array of pixels resulting in an image with a 
     moderate blured effect.
     """
+
+    # assert strength is an int or float between 0 and 1
+    if type(strength) != int and type(strength) != float:  
+        raise AssertionError("The 'strength' parameter must be an integer or float")
+    if strength < 0 or strength > 1:
+        raise AssertionError("The 'strength' parameter can only take on values from 0 to 1")
+
+    # assert filter_type is one of the valid option
+    if filter_type != 'blur' and filter_type != 'sharpen':
+        raise AssertionError("The fliter_type entered is not a valid option")
+    
+    # Read in and convert image to np.array
+    img = Image.open(input_path)
+    input_array = np.array(img)
+    h, w = img.size
+    output_array = input_array.copy()
+
+    if filter_type == 'blur':
+        # create blur filter
+        filt = np.full((int(h*strength/10),int(w*strength/10)), 1/(int(h*strength/10)*int(w*strength/10)))
+    else:
+        # create sharpen filter
+        filt = np.array([[0,0,0],[0,1,0],[0,0,0]]) + np.array([[0,-1,0],[-1,4,-1],[0,-1,0]]) * strength*2
+
+    # get coordinates for the middle of the filter
+    filt_h = filt.shape[0]
+    filt_w = filt.shape[1]
+    offset_w = filt_w//2
+    offset_h = filt_h//2
+
+
+    # Compute convolution with kernel/filter
+    for col in range(offset_w, w - offset_w):
+        for row in range(offset_h, h - offset_h):
+        
+            new_rgb = [0, 0, 0]
+        
+            for x in range(filt_h):
+                for y in range(filt_w):
+                
+                    # get coords for current filter position
+                    x_new = col + x - offset_h
+                    y_new = row + y - offset_w
+
+                    # multiply pixel rgb by filter value
+                    pixel_rgb = input_array[x_new, y_new] 
+                    new_rgb += pixel_rgb * filt[x][y]
+
+            if filter_type == 'blur':      
+                output_array[col,row] = new_rgb 
+            else:
+                output_array[col,row] = input_array[col,row] + (input_array[col,row] - new_rgb) * strength*10
+
+    # crop image to remove boundary pixels
+    output_array = output_array[offset_h:h-offset_h,offset_w:w-offset_w,:]
+    Image.fromarray(output_array).show()
+
+    if output_path is not None:
+       Image.fromarray(output_array).save(output_path)
+       print(f'New image saved in {output_path}')
+
+    return output_array
+
    
 def reducolor(style, input_path, output_path=None):
     '''
