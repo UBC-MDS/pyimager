@@ -136,9 +136,8 @@ def img_filter(input_path, filter_type, strength):
 	"""  
     Applies a filter to a given image to edit the visual aesthetic. 
 
-    The filter types include 'blur', 'emboss', and 'grayscale'; where
-    blur blends neighboring pixels, emboss creates a '3D like' impression, 
-    and grayscale returns a black and white image. 
+    The filter types include 'blur' and 'sharpen', and 'grayscale'; where
+    blur blends neighboring pixels and sharpen enhances edges. 
     The strength of the filter indicates how much of effect is apllied
     to the image; where 0 is no effect and 1 is very strong effect.
         
@@ -161,9 +160,19 @@ def img_filter(input_path, filter_type, strength):
     ---------
     >>> from pyimager import pyimager
     >>> pyimager.img_filter("bear.jpg", "blur", 0.4)
-    An array of pixels resulting in an image the same size as "bear.jpg" with a 
+    An array of pixels resulting in an image with a 
     moderate blured effect.
     """
+    # assert strength is an int or float between 0 and 1
+    if type(strength) != int and type(strength) != float: 
+         raise AssertionError("The 'strength' parameter must be an integer or float")
+    if strength < 0 or strength > 1:
+        raise AssertionError("The 'strength' parameter can only take on values from 0 to 1")
+
+    # assert filter_type is one of the valid option
+    if filter_type != 'blur' and filter_type != 'sharpen':
+        raise AssertionError("The fliter_type entered is not a valid option")
+
     # Read in and convert image to np.array
     img = Image.open(input_path)
     input_array = np.array(img)
