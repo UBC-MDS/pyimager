@@ -65,41 +65,40 @@ def test_img_filter():
     Unit test for the img_filter function
     '''
     # test assertion error for strength input type
-    with raises(TypeError):
-        pyimager.img_filter('images/mandrill.jpg', filter_type='blur', strength = '5')
+    with pytest.raises(TypeError):
+        img_filter('images/mandrill.jpg', filter_type='blur', strength = '5')
     
     # test assertion errors for strength input value
-    with raises(ValueError):
-        pyimager.img_filter('images/mandrill.jpg', filter_type='blur', strength = -1.5)
-        pyimager.img_filter('images/mandrill.jpg', filter_type='blur', strength = 1.5)
+    with pytest.raises(ValueError):
+        img_filter('images/mandrill.jpg', filter_type='blur', strength = -1.5)
+        img_filter('images/mandrill.jpg', filter_type='blur', strength = 1.5)
     
     # test assertion error for filter_type input value
-    with raises(ValueError):
-        pyimager.img_filter('images/mandrill.jpg', filter_type='3D', strength = 0.4)
+    with pytest.raises(ValueError):
+        img_filter('images/mandrill.jpg', filter_type='3D', strength = 0.4)
    
     # test FileNotFoundError for input_path
-    with raises(FileNotFoundError):
-        pyimager.img_filter('images/wrong.jpg', filter_type='blur', strength = 0.4)
+    with pytest.raises(FileNotFoundError):
+        img_filter('images/wrong.jpg', filter_type='blur', strength = 0.4)
     
     # test that if output_path is not None the file is saved
-    pyimager.img_filter('images/mandrill.jpg', filter_type = 'blur', strength=0.4, output_path = 'images/mandrill_new.jpg')
+    img_filter('images/mandrill.jpg', filter_type = 'blur', strength=0.1, output_path = 'images/mandrill_new.jpg')
     assert os.path.exists('images/mandrill_new.jpg'), 'File should be saved to the provided output path'
     os.remove('images/mandrill_new.jpg')
 
     # test that if output_path is None the file is not saved
-    pyimager.img_filter('images/mandrill.jpg', filter_type = 'blur', strength=0.4, output_path = None)
+    output_test = img_filter('images/mandrill.jpg', filter_type = 'blur', strength=0.1, output_path = None)
     assert os.path.exists('images/mandrill_new.jpg') == False, 'File should not be saved'
 
     # test that output image array is smaller or equal in size to original image array
-    output_test = pyimager.img_filter('images/mandrill.jpg', filter_type = 'blur', strength=0.4)
     img = Image.open('images/mandrill.jpg')
     input_test = np.array(img)
-    assert output_test.size[0] <= input_test.size[0], 'Output image should have equal or smaller dimensions than original image.'
-    assert output_test.size[1] <= input_test.size[1], 'Output image should have equal or smaller dimensions than original image.'
+    assert output_test.shape[0] <= input_test.shape[0], 'Output image should have equal or smaller dimensions than original image.'
+    assert output_test.shape[1] <= input_test.shape[1], 'Output image should have equal or smaller dimensions than original image.'
 
     # test that output image array dimensions when using sharpen filter
-    output_test = pyimager.img_filter('images/mandrill.jpg', filter_type = 'sharpen', strength=0.4)
+    output_test =  img_filter('images/mandrill.jpg', filter_type = 'sharpen', strength=0.5)
     assert output_test.shape[0] == input_test.shape[0] - 2, 'Output image has wrong width.'
-    assert output_test.size[1] <= input_test.shape[1] - 2, 'Output image should has wrong height.'
+    assert output_test.shape[1] <= input_test.shape[1] - 2, 'Output image should has wrong height.'
 
 
