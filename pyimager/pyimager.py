@@ -132,11 +132,11 @@ def reduce_dimensions(input_file,output_file,new_height,new_width):
 
 
 
-def img_filter(input_path, filter_type, strength):
+def img_filter(input_path, filter_type, strength, output_path=None):
     """  
     Applies a filter to a given image to edit the visual aesthetic. 
 
-    The filter types include 'blur' and 'sharpen', and 'grayscale'; where
+    The filter types include 'blur' and 'sharpen'; where
     blur blends neighboring pixels and sharpen enhances edges. 
     The strength of the filter indicates how much of effect is apllied
     to the image; where 0 is no effect and 1 is very strong effect.
@@ -147,9 +147,12 @@ def img_filter(input_path, filter_type, strength):
         path to the input image
     filter_type : str
         filter to be applied to the input image
-        options: 'blur', 
+        options: 'blur', 'sharpen'
     strength: int or float (0 to 1)
         the strength of the selected filter effect
+    output_path: str or None (default = None)
+        path to the modified output image file; 
+        if None, the image will not be saved to a file
 
     Returns
     -------
@@ -219,6 +222,11 @@ def img_filter(input_path, filter_type, strength):
     # crop image to remove boundary pixels
     output_array = output_array[offset_h:h-offset_h,offset_w:w-offset_w,:]
     Image.fromarray(output_array).show()
+
+    if output_path is not None:
+       Image.fromarray(output_array).save(output_path)
+       print(f'New image saved in {output_path}')
+
     return output_array
 
    
