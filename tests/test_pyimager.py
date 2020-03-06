@@ -34,7 +34,11 @@ def test_reducolor():
     else:
         assert False, f'AssertionError should be raised. Should not allow code other than 0 and 1'
 
-def test_reduce_dimensions():
-    
-    assert reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",200,200)== (200,200,3)
-    assert reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",205,205)== (205,205,3)
+def test_reduce_dimensions(): 
+    shape_even = reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",200,200).shape
+    assert shape_even == (200,200,3)
+    shape_odd = reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",205,210).shape
+    assert shape_odd == (205,210,3)
+    diff_dimension = reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",201,202).shape
+    assert diff_dimension == (201,202,3)
+
