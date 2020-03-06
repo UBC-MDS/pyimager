@@ -53,7 +53,7 @@ def circropper(input_path, output_path, margin):
     Image.fromarray(imgArray).save(output_path)
     return imgArray
 
-def reduce_dimensions(input_file,output_file,new_width,new_height):
+def reduce_dimensions(input_file,output_file,new_height,new_width):
     """  
     A function to reduce the dimension of a given image by removing vertical and horizontal seams
         
