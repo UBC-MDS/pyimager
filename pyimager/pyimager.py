@@ -211,7 +211,7 @@ def img_filter(input_path, filter_type, strength):
                     pixel_rgb = input_array[x_new, y_new] 
                     new_rgb += pixel_rgb * filt[x][y]
 
-            if filt_type == 'blur':      
+            if filter_type == 'blur':      
                 output_array[col,row] = new_rgb 
             else:
                 output_array[col,row] = input_array[col,row] + (input_array[col,row] - new_rgb) * strength*10
