@@ -92,4 +92,9 @@ def img_filter(input_path, filter_type, strength):
     An array of pixels resulting in an image the same size as "bear.jpg" with a 
     moderate blured effect.
     """
+
+    # Read in and convert image to np.array
+    img = Image.open(input_path).convert("RGB")
+    img_array = np.array(img)
+    height,width = img.size
     
