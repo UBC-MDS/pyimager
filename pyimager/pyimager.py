@@ -2,6 +2,8 @@ import numpy as np
 from PIL import Image, ImageDraw
 from matplotlib.image import imsave
 import matplotlib.pyplot as plt 
+from scipy.ndimage.filters import convolve
+
 
 def circropper(input_path, output_path, margin):
     """
@@ -15,7 +17,11 @@ def circropper(input_path, output_path, margin):
         The file path for cropped image 
     margin: float
         The distance between circle boundary and the original image boundary
-
+    
+    Returns:
+    --------
+        A numpy array of cropped image
+        
     Examples:
     ---------
     >>> from pyimager import circropper
@@ -29,6 +35,13 @@ def circropper(input_path, output_path, margin):
     imgArray=np.array(img)
     height,width=img.size
 
+    try:
+        if margin > min(height/2, width/2):
+            raise ValueError("margin is out of scope")
+    except ValueError as e:
+        print("Invalid margin value. margin must be smaller than half of the min(height/2, width/2)")
+        raise e
+
     # Create circle mask layer and crop 
     mask = Image.new('L', img.size,0)
     draw = ImageDraw.Draw(mask)
@@ -38,9 +51,10 @@ def circropper(input_path, output_path, margin):
 
     # Output image 
     Image.fromarray(imgArray).save(output_path)
+    return imgArray
 
-def reduce_dimensions(input_file, output_file, width, height):
-	"""  
+def reduce_dimensions(input_file,output_file,new_width,new_height):
+    """  
     A function to reduce the dimension of a given image by removing vertical and horizontal seams
         
     Parameters
@@ -65,6 +79,58 @@ def reduce_dimensions(input_file, output_file, width, height):
     A file named "result.png"  with the width 33 and height 33 will be generated in the
     current folder.
     """
+    # reading the image's original dimension
+    image = plt.imread(input_file)
+    width = image.shape[1] 
+    height = image.shape[0]   
+    # asserting that the new dimensions are less than the original dimensions
+    if new_width>width:
+         raise AssertionError("New width should be less than the original width")
+    if new_height>height:
+        raise AssertionError("New height should be less than the original height")
+    # reducing the width dimension
+    for i in range(0,(width-new_width)):
+        dx = np.array([-1, 0, 1])[None, :, None]
+        dy = np.array([-1, 0, 1])[:, None, None]    
+        energy_img = convolve(image, dx)**2 + convolve(image, dy)**2
+        v_seam = np.zeros(energy_img.shape[0])
+        lin_inds = np.array(v_seam)+np.arange(image.shape[0])*image.shape[1]
+        new_image = np.zeros(
+            (height, image.shape[1]-1, image.shape[-1]), dtype=image.dtype) 
+        for j in range(image.shape[-1]):
+            temp = np.delete(image[:, :, j], lin_inds.astype(int))
+            temp = np.reshape(temp, (height, image.shape[1]-1))
+            new_image[:, :, j] = temp
+        image=new_image
+    width = image.shape[1] 
+    height = image.shape[0]
+     # reducing the height dimension
+    for i in range(0,(height-new_height)):
+        image= np.transpose(image, (1, 0, 2)) 
+        dx = np.array([-1, 0, 1])[None, :, None]
+        dy = np.array([-1, 0, 1])[:, None, None]    
+        energy_img = convolve(image, dx)**2 + convolve(image, dy)**2
+
+        h_seam = np.zeros(energy_img.shape[0])
+        lin_inds = np.array(h_seam)+np.arange(image.shape[0])*image.shape[1]
+        new_image = np.zeros(
+            (width, image.shape[1]-1, image.shape[-1]), dtype=image.dtype) 
+        for c in range(image.shape[-1]):
+            temp = np.delete(image[:, :, c], lin_inds.astype(int))
+            temp = np.reshape(temp, (width, image.shape[1]-1))
+            new_image[:, :, c] = temp
+        image=np.transpose(new_image,(1, 0, 2))
+        
+    assert(image.shape[0] ==new_height)
+    assert(image.shape[1] ==new_width)
+        
+    plt.imsave(output_file, image)
+    return(image)
+
+    # examples :       
+    # python -c'import pyimager;pyimager.reduce_dimensions("../images/mandrill.jpg","../images/reduced_mandrill.jpg",210,200)'
+
+
 
 def img_filter(input_path, filter_type, strength):
 	"""  

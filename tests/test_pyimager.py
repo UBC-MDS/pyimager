@@ -1,4 +1,24 @@
+import sys
+import os
+import pytest
 from pyimager.pyimager import *
+
+input_path = "./tests/milad.jpg"
+def test_circropper_output():
+    img = Image.open(input_path).convert("RGB")
+    imgArray_1 = np.array(img)
+    imgArray_2 = circropper(input_path, "result.png", 0)
+    assert imgArray_1.shape[0] == imgArray_2.shape[0] 
+    assert imgArray_1.shape[1] == imgArray_2.shape[1] 
+    assert imgArray_1.shape[2] == imgArray_2.shape[2]-1
+
+def test_circropper_input_value():
+    try:
+        imgArray_2 = circropper(input_path, "result.png", 1000)
+    except ValueError:
+        pass
+    else:
+        print("not error happens")
 
 def test_reducolor():
     img_array = reducolor(0, 'tests/mandrill.jpg')
@@ -13,3 +33,8 @@ def test_reducolor():
         pass
     else:
         assert False, f'AssertionError should be raised. Should not allow code other than 0 and 1'
+
+def test_reduce_dimensions():
+    
+    assert reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",200,200)== (200,200,3)
+    assert reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",205,205)== (205,205,3)
