@@ -1,4 +1,3 @@
-
 import sys
 import os
 import pytest
@@ -34,4 +33,8 @@ def test_stype():
         pass
     else:
         assert False, f'Should not allow code other than 0 and 1 and raise StyleException'
+
+def test_reduce_dimensions():
     
+    assert reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",200,200)== (200,200,3)
+    assert reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",205,205)== (205,205,3)
