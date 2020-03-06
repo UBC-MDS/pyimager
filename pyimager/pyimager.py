@@ -3,7 +3,6 @@ from PIL import Image, ImageDraw
 from matplotlib.image import imsave
 import matplotlib.pyplot as plt 
 from scipy.ndimage.filters import convolve
-import matplotlib.pyplot as plt
 
 
 def circropper(input_path, output_path, margin):
