@@ -42,3 +42,33 @@ def test_reduce_dimensions():
     diff_dimension = reduce_dimensions("images/mandrill.jpg","images/reduced_mandrill.jpg",201,202).shape
     assert diff_dimension == (201,202,3)
 
+def test_img_filter():
+    # test assertion error for strength input type
+    try:
+        img_filter('images/mandrill.jpg', filter_type='blur', strength = '5')
+    except AssertionError:
+        pass
+    else:
+        assert False, f'AssertionError should be raised.\n Should not allow type other than int or float for strength parameter.'
+    # test assertion error for strength input value
+    try:
+        img_filter('images/mandrill.jpg', filter_type='blur', strength = -1.5)
+    except AssertionError:
+        pass
+    else:
+        assert False, f'AssertionError should be raised.\n Should not allow numbers less than 0 for strength parameter.'
+    # test assertion error for strength input value
+    try:
+        img_filter('images/mandrill.jpg', filter_type='blur', strength = 1.5)
+    except AssertionError:
+        pass
+    else:
+        assert False, f'AssertionError should be raised.\n Should not allow numbers greater than 1 for strength parameter.'
+    # test assertion error for filter_type input value
+    try:
+        img_filter('images/mandrill.jpg', filter_type='3D', strength = 0.4)
+    except AssertionError:
+        pass
+    else:
+        assert False, f"AssertionError should be raised.\n Should not options other than 'blur' or 'sharpen' for filter_type parameter."
+
