@@ -39,10 +39,8 @@ pip install -i https://test.pypi.org/simple/ pyimager
 
 - `circropper`: This function crops the input image into a circle. This can be useful when you want to make icons from images. 
 - `reduce_dimensions`: This function reduces the dimension of a given image by removing vertical and horizontal seams.
-- `img_filter`: This function applies a filter to a given image, altering the visual aesthetic. This includes options to 
-blur and sharpen the image with varying degrees of strength. This filter effect is achieved through the application of a matrix convolution
-with the filter kernel and original image. 
-- `reducolor`: This function reduces number of colors appearing on the image to have cartoonized color effect.
+- `img_filter`: This function applies a filter to a given image, altering the visual aesthetic. This includes options to blur and sharpen the image with varying degrees of strength. This filter effect is achieved through the application of a matrix convolution with the filter kernel and original image.  
+- `reducolor`: This function reduces the image colors to get the cartoonized color effect. This can be either white and black images or eight colors images. 
 
 
 ## Dependencies:

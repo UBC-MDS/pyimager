@@ -232,7 +232,7 @@ def img_filter(input_path, filter_type, strength, output_path=None):
    
 def reducolor(style, input_path, output_path=None):
     '''
-    Reduce image colors
+    Reduce image colors to have the cartoonized effect
 
     Parameters:
     -----------
@@ -241,7 +241,7 @@ def reducolor(style, input_path, output_path=None):
         1 for 8 colors
     input_path: string
         The file path of the image
-    output_path: string or None
+    output_path: string or None(default)
         if not None, the modified image will be saved
         in the provided folder path and name
 
@@ -279,7 +279,7 @@ def reducolor(style, input_path, output_path=None):
         new_img[:, :, 2] = blue    
     
     if output_path is not None:
-       imsave(f'{output_path}', new_img)
-       print(f'New image saved in {output_path}')
+        imsave(f'{output_path}', new_img)
+        print(f'New image saved in {output_path}')
     
     return new_img
