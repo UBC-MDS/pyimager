@@ -133,7 +133,7 @@ def reduce_dimensions(input_file,output_file,new_height,new_width):
 
 
 def img_filter(input_path, filter_type, strength):
-	"""  
+    """  
     Applies a filter to a given image to edit the visual aesthetic. 
 
     The filter types include 'blur' and 'sharpen', and 'grayscale'; where
@@ -163,16 +163,17 @@ def img_filter(input_path, filter_type, strength):
     An array of pixels resulting in an image with a 
     moderate blured effect.
     """
+
     # assert strength is an int or float between 0 and 1
-    if type(strength) != int and type(strength) != float: 
-         raise AssertionError("The 'strength' parameter must be an integer or float")
+    if type(strength) != int and type(strength) != float:  
+        raise AssertionError("The 'strength' parameter must be an integer or float")
     if strength < 0 or strength > 1:
         raise AssertionError("The 'strength' parameter can only take on values from 0 to 1")
 
     # assert filter_type is one of the valid option
     if filter_type != 'blur' and filter_type != 'sharpen':
         raise AssertionError("The fliter_type entered is not a valid option")
-
+    
     # Read in and convert image to np.array
     img = Image.open(input_path)
     input_array = np.array(img)
@@ -180,11 +181,11 @@ def img_filter(input_path, filter_type, strength):
     output_array = input_array.copy()
 
     if filter_type == 'blur':
-    # create blur filter
-    filt = np.full((int(h*strength/10),int(w*strength/10)), 1/(int(h*strength/10)*int(w*strength/10)))
+        # create blur filter
+        filt = np.full((int(h*strength/10),int(w*strength/10)), 1/(int(h*strength/10)*int(w*strength/10)))
     else:
-    # create sharpen filter
-    filt = np.array([[0,0,0],[0,1,0],[0,0,0]]) + np.array([[0,-1,0],[-1,4,-1],[0,-1,0]]) * strength*2
+        # create sharpen filter
+        filt = np.array([[0,0,0],[0,1,0],[0,0,0]]) + np.array([[0,-1,0],[-1,4,-1],[0,-1,0]]) * strength*2
 
     # get coordinates for the middle of the filter
     filt_h = filt.shape[0]
@@ -197,23 +198,23 @@ def img_filter(input_path, filter_type, strength):
     for col in range(offset_w, w - offset_w):
         for row in range(offset_h, h - offset_h):
         
-        new_rgb = [0, 0, 0]
+            new_rgb = [0, 0, 0]
         
-        for x in range(filt_h):
-            for y in range(filt_w):
+            for x in range(filt_h):
+                for y in range(filt_w):
                 
-                # get coords for current filter position
-                x_new = col + x - offset_h
-                y_new = row + y - offset_w
+                    # get coords for current filter position
+                    x_new = col + x - offset_h
+                    y_new = row + y - offset_w
 
-                # multiply pixel rgb by filter value
-                pixel_rgb = input_array[x_new, y_new] 
-                new_rgb += pixel_rgb * filt[x][y]
+                    # multiply pixel rgb by filter value
+                    pixel_rgb = input_array[x_new, y_new] 
+                    new_rgb += pixel_rgb * filt[x][y]
 
-        if filt_type == 'blur':      
-            output_array[col,row] = new_rgb 
-        else:
-            output_array[col,row] = input_array[col,row] + (input_array[col,row] - new_rgb) * strength*10
+            if filt_type == 'blur':      
+                output_array[col,row] = new_rgb 
+            else:
+                output_array[col,row] = input_array[col,row] + (input_array[col,row] - new_rgb) * strength*10
 
     # crop image to remove boundary pixels
     output_array = output_array[offset_h:h-offset_h,offset_w:w-offset_w,:]
