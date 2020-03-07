@@ -99,6 +99,5 @@ def test_img_filter():
     # test that output image array dimensions when using sharpen filter
     output_test =  img_filter('images/mandrill.jpg', filter_type = 'sharpen', strength=0.5)
     assert output_test.shape[0] == input_test.shape[0] - 2, 'Output image has wrong width.'
-    assert output_test.shape[1] <= input_test.shape[1] - 2, 'Output image should has wrong height.'
-
+    assert output_test.shape[1] <= input_test.shape[1] - 2, 'Output image has wrong height.'
 
