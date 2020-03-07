@@ -35,10 +35,8 @@ def circropper(input_path, margin):
         raise TypeError("The 'margin' argument must be a float")
     
     # Test valid image path 
-    try:
-        Image.open(input_path)
-    except IOError:
-        print ("can't find image")
+    if os.path.exists(input_path) == False:
+        raise FileNotFoundError("The input file does not exist")
 
     # Read in and convert image to np.array
     img=Image.open(input_path).convert("RGB")
