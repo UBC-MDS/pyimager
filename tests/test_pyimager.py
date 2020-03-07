@@ -17,7 +17,7 @@ def test_circropper():
     # Test valid image path 
     try:
         circropper("../../", 0)
-    except IOError:
+    except FileNotFoundError:
         pass
 
     # Test margin value
@@ -103,4 +103,3 @@ def test_img_filter():
         pass
     else:
         assert False, f"AssertionError should be raised.\n Should not options other than 'blur' or 'sharpen' for filter_type parameter."
-
