@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from scipy.ndimage.filters import convolve
 
 
-def circropper(input_path, output_path, margin):
+def circropper(input_path, margin):
     """
     Crops an image into a circle and leave some margin as you defined 
 
@@ -13,34 +13,41 @@ def circropper(input_path, output_path, margin):
     -----------
     input_path: string 
         The file path of the image to be cropped
-    output_path: string
-        The file path for cropped image 
-    margin: float
+    margin: float or int 
         The distance between circle boundary and the original image boundary
     
     Returns:
     --------
-        A numpy array of cropped image
+        A new cropped Image object 
         
     Examples:
     ---------
     >>> from pyimager import circropper
-    >>> circropper("bear.jpg", "result.png", 0)
-    A file named "result.png" will be generated in the 
-    designated folder.
+    >>> circropper("bear.jpg", 0)
+    A Image is cropped to a circle with no margin 
     """
+    # Test argument  
+    if type(input_path) != str and type(margin) != float and type(margin) != int:
+        raise TypeError("The 'input_path' argument must be a string and the margin argument must be a number")
+    if type(input_path) != str:
+        raise TypeError("The 'input_path' argument must be a string")
+    if type(margin) != float and type(margin) != int:
+        raise TypeError("The 'margin' argument must be a float")
+    
+    # Test valid image path 
+    try:
+        Image.open(input_path)
+    except IOError:
+        print ("can't find image")
 
     # Read in and convert image to np.array
     img=Image.open(input_path).convert("RGB")
     imgArray=np.array(img)
     height,width=img.size
 
-    try:
-        if margin > min(height/2, width/2):
-            raise ValueError("margin is out of scope")
-    except ValueError as e:
-        print("Invalid margin value. margin must be smaller than half of the min(height/2, width/2)")
-        raise e
+    # Check valid margin value 
+    if margin > min(height, width):
+        raise ValueError("The margin should be smaller than {0}".format(min(height, width)))
 
     # Create circle mask layer and crop 
     mask = Image.new('L', img.size,0)
@@ -48,10 +55,9 @@ def circropper(input_path, output_path, margin):
     draw.pieslice([margin,margin,height-margin,width-margin],0,360,fill=255)
     maskArray=np.array(mask)
     imgArray=np.dstack((imgArray,maskArray))
+    Image.fromarray(imgArray)
 
-    # Output image 
-    Image.fromarray(imgArray).save(output_path)
-    return imgArray
+    return Image.fromarray(imgArray)
 
 def reduce_dimensions(input_file,output_file,new_height,new_width):
     """  
@@ -129,8 +135,6 @@ def reduce_dimensions(input_file,output_file,new_height,new_width):
 
     # examples :       
     # python -c'import pyimager;pyimager.reduce_dimensions("../images/mandrill.jpg","../images/reduced_mandrill.jpg",210,200)'
-
-
 
 def img_filter(input_path, filter_type, strength, output_path=None):
     """  
