@@ -3,6 +3,7 @@ from PIL import Image, ImageDraw
 from matplotlib.image import imsave
 import matplotlib.pyplot as plt 
 from scipy.ndimage.filters import convolve
+import os
 
 
 def circropper(input_path, output_path, margin):
@@ -169,13 +170,17 @@ def img_filter(input_path, filter_type, strength, output_path=None):
 
     # assert strength is an int or float between 0 and 1
     if type(strength) != int and type(strength) != float:  
-        raise AssertionError("The 'strength' parameter must be an integer or float")
+        raise TypeError("The 'strength' parameter inputs should be of type 'integer' or 'float'")
     if strength < 0 or strength > 1:
-        raise AssertionError("The 'strength' parameter can only take on values from 0 to 1")
+        raise ValueError("The 'strength' parameter can only take on values from 0 to 1")
 
     # assert filter_type is one of the valid option
     if filter_type != 'blur' and filter_type != 'sharpen':
-        raise AssertionError("The fliter_type entered is not a valid option")
+        raise ValueError("The fliter_type entered is not a valid option")
+    
+    # assert input_path for img exists
+    if os.path.exists(input_path) == False:
+        raise FileNotFoundError("The input file does not exist")
     
     # Read in and convert image to np.array
     img = Image.open(input_path)
@@ -221,7 +226,6 @@ def img_filter(input_path, filter_type, strength, output_path=None):
 
     # crop image to remove boundary pixels
     output_array = output_array[offset_h:h-offset_h,offset_w:w-offset_w,:]
-    Image.fromarray(output_array).show()
 
     if output_path is not None:
        Image.fromarray(output_array).save(output_path)
