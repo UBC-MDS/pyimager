@@ -3,23 +3,37 @@ import os
 import pytest
 from pyimager.pyimager import *
 
-input_path = "./tests/milad.jpg"
-def test_circropper_output():
+def test_circropper():
+    input_path = "./tests/milad.jpg"
+
+    # Test argument type 
+    try:
+        circropper(1, "one")
+        circropper(1, 10)
+        circropper(input_path, "one")
+    except TypeError:
+        pass
+
+    # Test valid image path 
+    try:
+        circropper("../../", 0)
+    except FileNotFoundError:
+        pass
+
+    # Test margin value
+    try:
+        circropper(input_path, 1000)
+    except ValueError:
+        pass
+
+    # Test output  
     img = Image.open(input_path).convert("RGB")
     imgArray_1 = np.array(img)
-    imgArray_2 = circropper(input_path, "tests/result.png", 0)
+    imgArray_2 = np.array(circropper(input_path, 0))
     assert imgArray_1.shape[0] == imgArray_2.shape[0] 
     assert imgArray_1.shape[1] == imgArray_2.shape[1] 
     assert imgArray_1.shape[2] == imgArray_2.shape[2]-1
-    os.remove("tests/result.png")
-
-def test_circropper_input_value():
-    try:
-        imgArray_2 = circropper(input_path, "result.png", 1000)
-    except ValueError:
-        pass
-    else:
-        print("not error happens")
+    print("All tests pass! ")
 
 def test_reducolor():
     '''
