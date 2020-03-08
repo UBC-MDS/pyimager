@@ -16,7 +16,7 @@ def test_circropper():
 
     # Test valid image path 
     try:
-        circropper("../../", 0)
+        circropper("tests/wrong.jpg", 0)
     except FileNotFoundError:
         pass
 
