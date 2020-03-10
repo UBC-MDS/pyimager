@@ -118,10 +118,10 @@ def test_imgfilter():
     # test that if output_path is None the file is not saved
     output_test = imgfilter('images/mandrill.jpg',
                             filter_type='blur', strength=0.1, output_path=None)
-    assert os.path.exists('images/mandrill_new.jpg') == False, \
+    assert os.path.exists('images/mandrill_new.jpg') is False, \
         'File should not be saved'
 
-    # test that output image array is smaller or equal 
+    # test that output image array is smaller or equal
     # in size to original image array
     img = Image.open('images/mandrill.jpg')
     input_test = np.array(img)
