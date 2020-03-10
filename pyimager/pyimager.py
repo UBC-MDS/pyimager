@@ -23,20 +23,23 @@ def circropper(input_path, margin):
         
     Examples:
     ---------
-    >>> from pyimager import circropper
+    >>> from pyimager import pyimager
     >>> circropper("bear.jpg", 0)
     A Image is cropped to a circle with no margin 
     """
     # Test argument  
-    if type(input_path) != str and type(margin) != float and type(margin) != int:
-        raise TypeError("The 'input_path' argument must be a string and the margin argument must be a number")
+    if type(input_path) != str and type(margin) != float and type(
+            margin) != int:
+        raise TypeError(
+            "The 'input_path' argument must be a string and the margin "
+            "argument must be a number")
     if type(input_path) != str:
         raise TypeError("The 'input_path' argument must be a string")
     if type(margin) != float and type(margin) != int:
         raise TypeError("The 'margin' argument must be a float")
 
     # Test valid image path 
-    if os.path.exists(input_path) == False:
+    if not os.path.exists(input_path):
         raise FileNotFoundError("The input file does not exist")
 
     # Read in and convert image to np.array
@@ -46,22 +49,25 @@ def circropper(input_path, margin):
 
     # Check valid margin value 
     if margin > min(height, width):
-        raise ValueError("The margin should be smaller than {0}".format(min(height, width)))
+        raise ValueError(
+            "The margin should be smaller than {0}".format(min(height, width)))
 
     # Create circle mask layer and crop 
     mask = Image.new('L', img.size, 0)
     draw = ImageDraw.Draw(mask)
-    draw.pieslice([margin, margin, height - margin, width - margin], 0, 360, fill=255)
-    maskArray = np.array(mask)
-    imgArray = np.dstack((imgArray, maskArray))
+    draw.pieslice([margin, margin, height - margin, width - margin], 0, 360,
+                  fill=255)
+    mask_array = np.array(mask)
+    imgArray = np.dstack((imgArray, mask_array))
     Image.fromarray(imgArray)
 
     return Image.fromarray(imgArray)
 
 
-def reduce_dimensions(input_file, output_file, new_height, new_width):
+def redusize(input_file, output_file, new_height, new_width):
     """  
-    A function to reduce the dimension of a given image by removing vertical and horizontal seams
+    A function to reduce the dimension of a given image by removing vertical
+    and horizontal seams
         
     Parameters
     ----------
@@ -69,9 +75,9 @@ def reduce_dimensions(input_file, output_file, new_height, new_width):
         path to the input image
     output_file : str
         path to the output image
-    width : int
+    new_width : int
         new width the output image
-    height : int
+    new_height : int
         new height of the output image
         
     Returns
@@ -81,9 +87,9 @@ def reduce_dimensions(input_file, output_file, new_height, new_width):
     Examples:
     ---------
     >>> from pyimager import pyimager
-    >>> pyimager.reduce_dimensions("bear.jpg", "result.png", 33, 33)
-    A file named "result.png"  with the width 33 and height 33 will be generated in the
-    current folder.
+    >>> pyimager.redusize("bear.jpg", "result.png", 33, 33)
+    A file named "result.png"  with the width 33 and height 33 will be
+    generated in the current folder.
     """
     # reading the image's original dimension
     image = plt.imread(input_file)
@@ -91,16 +97,19 @@ def reduce_dimensions(input_file, output_file, new_height, new_width):
     height = image.shape[0]
     # asserting that the new dimensions are less than the original dimensions
     if new_width > width:
-        raise AssertionError("New width should be less than the original width")
+        raise AssertionError(
+            "New width should be less than the original width")
     if new_height > height:
-        raise AssertionError("New height should be less than the original height")
+        raise AssertionError(
+            "New height should be less than the original height")
     # reducing the width dimension
     for i in range(0, (width - new_width)):
         dx = np.array([-1, 0, 1])[None, :, None]
         dy = np.array([-1, 0, 1])[:, None, None]
         energy_img = convolve(image, dx) ** 2 + convolve(image, dy) ** 2
         v_seam = np.zeros(energy_img.shape[0])
-        lin_inds = np.array(v_seam) + np.arange(image.shape[0]) * image.shape[1]
+        lin_inds = np.array(v_seam) + np.arange(image.shape[0]) * image.shape[
+            1]
         new_image = np.zeros(
             (height, image.shape[1] - 1, image.shape[-1]), dtype=image.dtype)
         for j in range(image.shape[-1]):
@@ -118,7 +127,8 @@ def reduce_dimensions(input_file, output_file, new_height, new_width):
         energy_img = convolve(image, dx) ** 2 + convolve(image, dy) ** 2
 
         h_seam = np.zeros(energy_img.shape[0])
-        lin_inds = np.array(h_seam) + np.arange(image.shape[0]) * image.shape[1]
+        lin_inds = np.array(h_seam) + np.arange(image.shape[0]) * image.shape[
+            1]
         new_image = np.zeros(
             (width, image.shape[1] - 1, image.shape[-1]), dtype=image.dtype)
         for c in range(image.shape[-1]):
@@ -131,13 +141,14 @@ def reduce_dimensions(input_file, output_file, new_height, new_width):
     assert (image.shape[1] == new_width)
 
     plt.imsave(output_file, image)
-    return (image)
+    return image
 
     # examples :       
-    # python -c'import pyimager;pyimager.reduce_dimensions("../images/mandrill.jpg","../images/reduced_mandrill.jpg",210,200)'
+    # python -c'import pyimager;pyimager.redusize(
+    # "../images/mandrill.jpg","../images/reduced_mandrill.jpg",210,200)'
 
 
-def img_filter(input_path, filter_type, strength, output_path=None):
+def imgfilter(input_path, filter_type, strength, output_path=None):
     """  
     Applies a filter to a given image to edit the visual aesthetic. 
 
@@ -162,28 +173,32 @@ def img_filter(input_path, filter_type, strength, output_path=None):
     Returns
     -------
     np.array
-        Array of pixels which comprises the original image with the applied filter
+        Array of pixels which comprises the original image with
+        the applied filter
 
     Examples:
     ---------
     >>> from pyimager import pyimager
-    >>> pyimager.img_filter("bear.jpg", "blur", 0.4)
+    >>> pyimager.imgfilter("bear.jpg", "blur", 0.4)
     An array of pixels resulting in an image with a 
-    moderate blured effect.
+    moderate blurred effect.
     """
 
     # assert strength is an int or float between 0 and 1
     if type(strength) != int and type(strength) != float:
-        raise TypeError("The 'strength' parameter inputs should be of type 'integer' or 'float'")
+        raise TypeError(
+            "The 'strength' parameter inputs should be of type 'integer' or "
+            "'float'")
     if strength < 0 or strength > 1:
-        raise ValueError("The 'strength' parameter can only take on values from 0 to 1")
+        raise ValueError(
+            "The 'strength' parameter can only take on values from 0 to 1")
 
     # assert filter_type is one of the valid option
     if filter_type != 'blur' and filter_type != 'sharpen':
         raise ValueError("The fliter_type entered is not a valid option")
 
     # assert input_path for img exists
-    if os.path.exists(input_path) == False:
+    if not os.path.exists(input_path):
         raise FileNotFoundError("The input file does not exist")
 
     # Read in and convert image to np.array
@@ -226,10 +241,12 @@ def img_filter(input_path, filter_type, strength, output_path=None):
             if filter_type == 'blur':
                 output_array[col, row] = new_rgb
             else:
-                output_array[col, row] = input_array[col, row] + (input_array[col, row] - new_rgb) * strength * 10
+                output_array[col, row] = input_array[col, row] + (
+                        input_array[col, row] - new_rgb) * strength * 10
 
     # crop image to remove boundary pixels
-    output_array = output_array[offset_h:h - offset_h, offset_w:w - offset_w, :]
+    output_array = output_array[offset_h:h - offset_h, offset_w:w - offset_w,
+                   :]
 
     if output_path is not None:
         Image.fromarray(output_array).save(output_path)
@@ -239,7 +256,7 @@ def img_filter(input_path, filter_type, strength, output_path=None):
 
 
 def reducolor(style, input_path, output_path=None):
-    '''
+    """
     Reduce image colors to have the cartoonized effect
 
     Parameters:
@@ -255,20 +272,25 @@ def reducolor(style, input_path, output_path=None):
 
     Returns:
     --------
-    numpy.ndarray of the image and an image saved in the designated path 
-    
+    numpy.ndarray of the image and an image saved in the designated path
+
     Examples:
     ---------
     reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
-    '''
+    """
 
     img = plt.imread(input_path) / 255
 
-    assert style == 0 or style == 1, f'{style} is invalid for the style argument.\n Please enter either 0 for black and white color, 1 for eight color scales'
+    assert style == 0 or style == 1, f'{style} is invalid for the style ' \
+                                     f'argument.\n Please enter either 0 for ' \
+                                     f'' \
+                                     f'black and white color, 1 for eight ' \
+                                     f'color scales '
 
     if style == 0:  # black and white color
         new_img = img.copy()
-        new_img[(img.mean(axis=2) < 0.5), :] = np.array([0, 0, 0])  # less than gray
+        new_img[(img.mean(axis=2) < 0.5), :] = np.array(
+            [0, 0, 0])  # less than gray
         new_img[(img.mean(axis=2) >= 0.5), :] = np.array([1, 1, 1])
 
     elif style == 1:
