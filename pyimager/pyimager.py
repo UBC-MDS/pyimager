@@ -246,7 +246,7 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
 
     # crop image to remove boundary pixels
     output_array = output_array[offset_h:h - offset_h, offset_w:w - offset_w,
-                   :]
+                                :]
 
     if output_path is not None:
         Image.fromarray(output_array).save(output_path)
