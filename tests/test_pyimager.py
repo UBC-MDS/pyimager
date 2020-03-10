@@ -34,7 +34,7 @@ def test_circropper():
     imgArray_2 = np.array(circropper(input_path, 0))
     assert imgArray_1.shape[0] == imgArray_2.shape[0]
     assert imgArray_1.shape[1] == imgArray_2.shape[1]
-    assert imgArray_1.shape[2] == imgArray_2.shape[2]-1
+    assert imgArray_1.shape[2] == imgArray_2.shape[2] - 1
     print("All tests pass! ")
 
 
@@ -67,11 +67,11 @@ def test_reducolor():
         pass
     else:
         assert False, \
-    f'FileNotFoundError should be raised for non-existant files.'
+            f'FileNotFoundError should be raised for non-existant files.'
     reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
     assert os.path.exists(
         'tests/mandrill_new.jpg'), \
-    'File should be saved to the provided output path'
+        'File should be saved to the provided output path'
     os.remove('tests/mandrill_new.jpg')
 
 
@@ -110,31 +110,32 @@ def test_imgfilter():
 
     # test that if output_path is not None the file is saved
     imgfilter('images/mandrill.jpg', filter_type='blur',
-               strength=0.1, output_path='images/mandrill_new.jpg')
+              strength=0.1, output_path='images/mandrill_new.jpg')
     assert os.path.exists('images/mandrill_new.jpg'), \
-    'File should be saved to the provided output path'
+        'File should be saved to the provided output path'
     os.remove('images/mandrill_new.jpg')
 
     # test that if output_path is None the file is not saved
-    output_test = imgfilter('images/mandrill.jpg', 
-    filter_type='blur', strength=0.1, output_path=None)
-    assert os.path.exists('images/mandrill_new.jpg') == False, \
-    'File should not be saved'
+    output_test = imgfilter('images/mandrill.jpg',
+                            filter_type='blur', strength=0.1, output_path=None)
+    assert os.path.exists('images/mandrill_new.jpg') is False, \
+        'File should not be saved'
 
-    # test that output image array is smaller or equal 
+    # test that output image array is smaller or equal
     # in size to original image array
     img = Image.open('images/mandrill.jpg')
     input_test = np.array(img)
     assert output_test.shape[0] <= input_test.shape[0], \
-    'Output image should have equal or smaller dimensions than original image.'
+        'Output image should have equal or smaller dimensions than original ' \
+        'image.'
     assert output_test.shape[1] <= input_test.shape[1], \
-    'Output image should have equal or smaller dimensions than original image.'
+        'Output image should have equal or smaller dimensions than original ' \
+        'image.'
 
     # test that output image array dimensions when using sharpen filter
     output_test = imgfilter('images/mandrill.jpg',
-    filter_type='sharpen', strength=0.5)
+                            filter_type='sharpen', strength=0.5)
     assert output_test.shape[0] == input_test.shape[0] - 2, \
-    'Output image has wrong width.'
+        'Output image has wrong width.'
     assert output_test.shape[1] <= input_test.shape[1] - 2, \
-    'Output image has wrong height.'
-    
+        'Output image has wrong height.'
