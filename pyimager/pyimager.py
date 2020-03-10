@@ -37,21 +37,21 @@ def circropper(input_path, margin):
         raise TypeError("The 'input_path' argument must be a string")
     if type(margin) != float and type(margin) != int:
         raise TypeError("The 'margin' argument must be a float")
-
+    
     # Test valid image path 
     if not os.path.exists(input_path):
         raise FileNotFoundError("The input file does not exist")
-
+    
     # Read in and convert image to np.array
     img = Image.open(input_path).convert("RGB")
     imgArray = np.array(img)
     height, width = img.size
-
+    
     # Check valid margin value 
     if margin > min(height, width):
         raise ValueError(
             "The margin should be smaller than {0}".format(min(height, width)))
-
+    
     # Create circle mask layer and crop 
     mask = Image.new('L', img.size, 0)
     draw = ImageDraw.Draw(mask)
@@ -60,7 +60,7 @@ def circropper(input_path, margin):
     mask_array = np.array(mask)
     imgArray = np.dstack((imgArray, mask_array))
     Image.fromarray(imgArray)
-
+    
     return Image.fromarray(imgArray)
 
 
@@ -125,7 +125,7 @@ def redusize(input_file, output_file, new_height, new_width):
         dx = np.array([-1, 0, 1])[None, :, None]
         dy = np.array([-1, 0, 1])[:, None, None]
         energy_img = convolve(image, dx) ** 2 + convolve(image, dy) ** 2
-
+        
         h_seam = np.zeros(energy_img.shape[0])
         lin_inds = np.array(h_seam) + np.arange(image.shape[0]) * image.shape[
             1]
@@ -136,13 +136,13 @@ def redusize(input_file, output_file, new_height, new_width):
             temp = np.reshape(temp, (width, image.shape[1] - 1))
             new_image[:, :, c] = temp
         image = np.transpose(new_image, (1, 0, 2))
-
+    
     assert (image.shape[0] == new_height)
     assert (image.shape[1] == new_width)
-
+    
     plt.imsave(output_file, image)
     return image
-
+    
     # examples :       
     # python -c'import pyimager;pyimager.redusize(
     # "../images/mandrill.jpg","../images/reduced_mandrill.jpg",210,200)'
@@ -183,7 +183,7 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
     An array of pixels resulting in an image with a 
     moderate blurred effect.
     """
-
+    
     # assert strength is an int or float between 0 and 1
     if type(strength) != int and type(strength) != float:
         raise TypeError(
@@ -192,21 +192,21 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
     if strength < 0 or strength > 1:
         raise ValueError(
             "The 'strength' parameter can only take on values from 0 to 1")
-
+    
     # assert filter_type is one of the valid option
     if filter_type != 'blur' and filter_type != 'sharpen':
         raise ValueError("The fliter_type entered is not a valid option")
-
+    
     # assert input_path for img exists
     if not os.path.exists(input_path):
         raise FileNotFoundError("The input file does not exist")
-
+    
     # Read in and convert image to np.array
     img = Image.open(input_path)
     input_array = np.array(img)
     h, w = img.size
     output_array = input_array.copy()
-
+    
     if filter_type == 'blur':
         # create blur filter
         filt = np.full((int(h * strength / 10), int(w * strength / 10)),
@@ -215,43 +215,43 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
         # create sharpen filter
         filt = np.array([[0, 0, 0], [0, 1, 0], [0, 0, 0]]) + np.array(
             [[0, -1, 0], [-1, 4, -1], [0, -1, 0]]) * strength * 2
-
+    
     # get coordinates for the middle of the filter
     filt_h = filt.shape[0]
     filt_w = filt.shape[1]
     offset_w = filt_w // 2
     offset_h = filt_h // 2
-
+    
     # Compute convolution with kernel/filter
     for col in range(offset_w, w - offset_w):
         for row in range(offset_h, h - offset_h):
-
+            
             new_rgb = [0, 0, 0]
-
+            
             for x in range(filt_h):
                 for y in range(filt_w):
                     # get coords for current filter position
                     x_new = col + x - offset_h
                     y_new = row + y - offset_w
-
+                    
                     # multiply pixel rgb by filter value
                     pixel_rgb = input_array[x_new, y_new]
                     new_rgb += pixel_rgb * filt[x][y]
-
+            
             if filter_type == 'blur':
                 output_array[col, row] = new_rgb
             else:
                 output_array[col, row] = input_array[col, row] + (
                         input_array[col, row] - new_rgb) * strength * 10
-
+    
     # crop image to remove boundary pixels
     output_array = output_array[offset_h:h - offset_h, offset_w:w - offset_w,
                    :]
-
+    
     if output_path is not None:
         Image.fromarray(output_array).save(output_path)
         print(f'New image saved in {output_path}')
-
+    
     return output_array
 
 
@@ -278,21 +278,28 @@ def reducolor(style, input_path, output_path=None):
     ---------
     reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
     """
-
+    
     img = plt.imread(input_path) / 255
-
+    
     assert style == 0 or style == 1, f'{style} is invalid for the style ' \
                                      f'argument.\n Please enter either 0 for ' \
                                      f'' \
+                                     f'' \
+                                     f'' \
+                                     f'' \
+                                     f'' \
+                                     f'' \
+                                     f'' \
+                                     f'' \
                                      f'black and white color, 1 for eight ' \
                                      f'color scales '
-
+    
     if style == 0:  # black and white color
         new_img = img.copy()
         new_img[(img.mean(axis=2) < 0.5), :] = np.array(
             [0, 0, 0])  # less than gray
         new_img[(img.mean(axis=2) >= 0.5), :] = np.array([1, 1, 1])
-
+    
     elif style == 1:
         red = img[:, :, 0]
         red[red < np.median(red)] = np.min(red)
@@ -307,9 +314,9 @@ def reducolor(style, input_path, output_path=None):
         new_img[:, :, 0] = red
         new_img[:, :, 1] = green
         new_img[:, :, 2] = blue
-
+    
     if output_path is not None:
         imsave(f'{output_path}', new_img)
         print(f'New image saved in {output_path}')
-
+    
     return new_img
