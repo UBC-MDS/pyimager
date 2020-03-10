@@ -8,26 +8,26 @@ import os
 
 def circropper(input_path, margin):
     """
-    Crops an image into a circle and leave some margin as you defined 
+    Crops an image into a circle and leave some margin as you defined
 
     Parameters:
     -----------
-    input_path: string 
+    input_path: string
         The file path of the image to be cropped
-    margin: float or int 
+    margin: float or int
         The distance between circle boundary and the original image boundary
-    
+
     Returns:
     --------
-        A new cropped Image object 
-        
+        A new cropped Image object
+
     Examples:
     ---------
     >>> from pyimager import pyimager
     >>> circropper("bear.jpg", 0)
-    A Image is cropped to a circle with no margin 
+    A Image is cropped to a circle with no margin
     """
-    # Test argument  
+    # Test argument
     if type(input_path) != str and type(margin) != float and type(
             margin) != int:
         raise TypeError(
@@ -38,7 +38,7 @@ def circropper(input_path, margin):
     if type(margin) != float and type(margin) != int:
         raise TypeError("The 'margin' argument must be a float")
 
-    # Test valid image path 
+    # Test valid image path
     if not os.path.exists(input_path):
         raise FileNotFoundError("The input file does not exist")
 
@@ -47,12 +47,12 @@ def circropper(input_path, margin):
     imgArray = np.array(img)
     height, width = img.size
 
-    # Check valid margin value 
+    # Check valid margin value
     if margin > min(height, width):
         raise ValueError(
             "The margin should be smaller than {0}".format(min(height, width)))
 
-    # Create circle mask layer and crop 
+    # Create circle mask layer and crop
     mask = Image.new('L', img.size, 0)
     draw = ImageDraw.Draw(mask)
     draw.pieslice([margin, margin, height - margin, width - margin], 0, 360,
@@ -65,10 +65,10 @@ def circropper(input_path, margin):
 
 
 def redusize(input_file, output_file, new_height, new_width):
-    """  
+    """
     A function to reduce the dimension of a given image by removing vertical
     and horizontal seams
-        
+
     Parameters
     ----------
     input_file : str
@@ -79,7 +79,7 @@ def redusize(input_file, output_file, new_height, new_width):
         new width the output image
     new_height : int
         new height of the output image
-        
+
     Returns
     -------
     A new image with new width and height
@@ -143,20 +143,20 @@ def redusize(input_file, output_file, new_height, new_width):
     plt.imsave(output_file, image)
     return image
 
-    # examples :       
+    # examples:
     # python -c'import pyimager;pyimager.redusize(
     # "../images/mandrill.jpg","../images/reduced_mandrill.jpg",210,200)'
 
 
 def imgfilter(input_path, filter_type, strength, output_path=None):
-    """  
-    Applies a filter to a given image to edit the visual aesthetic. 
+    """
+    Applies a filter to a given image to edit the visual aesthetic.
 
     The filter types include 'blur' and 'sharpen'; where
-    blur blends neighboring pixels and sharpen enhances edges. 
+    blur blends neighboring pixels and sharpen enhances edges.
     The strength of the filter indicates how much of effect is apllied
     to the image; where 0 is no effect and 1 is very strong effect.
-        
+
     Parameters
     ----------
     input_path : str
@@ -167,7 +167,7 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
     strength: int or float (0 to 1)
         the strength of the selected filter effect
     output_path: str or None (default = None)
-        path to the modified output image file; 
+        path to the modified output image file;
         if None, the image will not be saved to a file
 
     Returns
@@ -180,7 +180,7 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
     ---------
     >>> from pyimager import pyimager
     >>> pyimager.imgfilter("bear.jpg", "blur", 0.4)
-    An array of pixels resulting in an image with a 
+    An array of pixels resulting in an image with a
     moderate blurred effect.
     """
 
