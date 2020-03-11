@@ -69,7 +69,7 @@ pyimager.reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
 ```python
 from pyimager import pyimager
 
-pyimager.imgfilter("images/bear.jpg", "blur", 0.4)
+pyimager.imgfilter("images/mandrill.jpg", "blur", 0.4)
 ```
 
 ```python
