@@ -59,7 +59,7 @@ pyimager.circropper("images/mandrill.jpg", 0)
 ```
 ![](images/bear.jpg) 
 ![](images/result2.png)
-
+os.remove('images/results2.jpg')
 ```python 
 from pyimager import pyimager
 
