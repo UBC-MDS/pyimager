@@ -75,7 +75,7 @@ pyimager.imgfilter("images/mandrill.jpg", "blur", 0.4)
 ```python
 from pyimager import pyimager
 
-pyimager.reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
+pyimager.reducolor(0, 'images/mandrill.jpg', 'images/mandrill_new.jpg')
 ```
 ## Documentation
 The official documentation is hosted on Read the Docs: <https://pyimager.readthedocs.io/en/latest/>
