@@ -63,7 +63,7 @@ pyimager.circropper("images/bear.jpg", 0)
 ```python 
 from pyimager import pyimager
 
-pyimager.reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
+pyimager.reducolor(0, 'images/mandrill.jpg', 'images/mandrill_new.jpg')
 ```
 
 ```python
