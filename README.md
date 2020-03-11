@@ -44,18 +44,39 @@ pip install -i https://test.pypi.org/simple/ pyimager
 
 
 ## Dependencies:
-- Python 3.6 or greater
-    - numpy
-    - PIL
-    - scipy
-    - matplotlib
+- Python 3.7 or greater
+    - numpy = "^1.18.1"
+    - Pillow = "^7.0.0"
+    - scipy = "^1.4.1"
+    - matplotlib = "^3.2.0"
 
-## Usage:
+## Usage Examples 
 
-``` python
+```python
 from pyimager import pyimager
+
+pyimager.circropper("images/bear.jpg", 0)
+```
+![](images/bear.jpg) 
+![](images/result2.png)
+
+```python 
+from pyimager import pyimager
+
+pyimager.reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
 ```
 
+```python
+from pyimager import pyimager
+
+pyimager.imgfilter("images/bear.jpg", "blur", 0.4)
+```
+
+```python
+from pyimager import pyimager
+
+pyimager.reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
+```
 ## Documentation
 The official documentation is hosted on Read the Docs: <https://pyimager.readthedocs.io/en/latest/>
 
