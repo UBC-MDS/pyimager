@@ -11,7 +11,15 @@ def test_circropper():
     # Test argument type
     try:
         circropper(1, "one")
+    except TypeError:
+        pass
+
+    try:
         circropper(1, 10)
+    except TypeError:
+        pass
+
+    try:
         circropper(input_path, "one")
     except TypeError:
         pass
