@@ -6,6 +6,9 @@ from pyimager.pyimager import circropper, imgfilter, redusize, reducolor
 
 
 def test_circropper():
+    """
+    unit test for the circropper function
+    """
     input_path = "./tests/milad.jpg"
 
     # Test argument type
