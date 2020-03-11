@@ -133,7 +133,6 @@ def test_redusize():
     os.remove("images/reduced_mandrill.jpg")
     
 
-
 def test_imgfilter():
     '''
     Unit test for the imgfilter function
