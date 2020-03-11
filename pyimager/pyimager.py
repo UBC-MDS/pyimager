@@ -143,10 +143,6 @@ def redusize(input_file, output_file, new_height, new_width):
     plt.imsave(output_file, image)
     return image
 
-    # examples:
-    # python -c'import pyimager;pyimager.redusize(
-    # "../images/mandrill.jpg","../images/reduced_mandrill.jpg",210,200)'
-
 
 def imgfilter(input_path, filter_type, strength, output_path=None):
     """
