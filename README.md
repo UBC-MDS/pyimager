@@ -75,6 +75,11 @@ from pyimager import pyimager
 
 pyimager.reducolor(0, 'images/mandrill.jpg', 'images/mandrill_new.jpg')
 ```
+
+```python
+from pyimager import pyimager
+pyimager.redusize("images/mandrill.jpg", "images/reduced_mandrill.jpg", 200, 300)
+```
 ## Documentation
 The official documentation is hosted on Read the Docs: <https://pyimager.readthedocs.io/en/latest/>
 
