@@ -106,7 +106,7 @@ def test_redusize():
     shape_small = redusize(
         "images/mandrill.jpg", "images/reduced_mandrill.jpg", 20, 20).shape
     assert shape_small == (20, 20, 3)
-    #  testing that the function raises exception error when the the width larger than the original width
+    # exception error when the the width larger than the original width
     try:
         redusize(
             "images/mandrill.jpg", "images/reduced_mandrill.jpg", 300, 200)
@@ -115,7 +115,7 @@ def test_redusize():
     else:
         assert False, f'AssertionError should be raised. \
             Width of must be less than the original width'
-    #  testing that the function raises exception error when the the height larger than the original height
+    # exception error when the the height larger than the original height
     try:
         redusize(
             "images/mandrill.jpg", "images/reduced_mandrill.jpg", 200, 300)
