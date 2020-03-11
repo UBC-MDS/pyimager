@@ -55,7 +55,7 @@ pip install -i https://test.pypi.org/simple/ pyimager
 ```python
 from pyimager import pyimager
 
-pyimager.circropper("images/bear.jpg", 0)
+pyimager.circropper("images/mandrill.jpg", 0)
 ```
 ![](images/bear.jpg) 
 ![](images/result2.png)
