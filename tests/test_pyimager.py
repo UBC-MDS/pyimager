@@ -64,11 +64,11 @@ def test_reducolor():
     assert color_n == 8, f'Should return eight colors, \
     {color_n} colors are returned'
 
-    #Should not allow code other than 0 and 1, AssertionError should be raised
+    # Should not allow code other than 0 and 1, AssertionError should be raised
     with pytest.raises(AssertionError):
         img_array = reducolor(2, 'tests/mandrill.jpg')
 
-    #FileNotFoundError should be raised for non-existant files
+    # FileNotFoundError should be raised for non-existant files
     with pytest.raises(FileNotFoundError):
         img_array = reducolor(2, 'tests/wrong.jpg')
 
