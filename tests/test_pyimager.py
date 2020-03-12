@@ -100,23 +100,13 @@ def test_redusize():
         "images/mandrill.jpg", "images/reduced_mandrill.jpg", 20, 20).shape
     assert shape_small == (20, 20, 3)
     # exception error when the the width larger than the original width
-    try:
+    with pytest.raises(AssertionError):
         redusize(
             "images/mandrill.jpg", "images/reduced_mandrill.jpg", 300, 200)
-    except AssertionError:
-        pass
-    else:
-        assert False, f'AssertionError should be raised. \
-            Width of must be less than the original width'
     # exception error when the the height larger than the original height
-    try:
+    with pytest.raises(AssertionError):
         redusize(
             "images/mandrill.jpg", "images/reduced_mandrill.jpg", 200, 300)
-    except AssertionError:
-        pass
-    else:
-        assert False, f'AssertionError should be raised. \
-            Height of must be less than the original height'
     redusize(
         "images/mandrill.jpg", "images/reduced_mandrill.jpg", 200, 200)
     #  testing that the function writes the image to the provided output path
