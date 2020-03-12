@@ -64,21 +64,14 @@ def test_reducolor():
     assert color_n == 8, f'Should return eight colors, \
     {color_n} colors are returned'
 
-    try:
+    # Style must be either 0 or 1. AssertionError should be raised
+    with pytest.raises(AssertionError):
         img_array = reducolor(2, 'tests/mandrill.jpg')
-    except AssertionError:
-        pass
-    else:
-        assert False, f'AssertionError should be raised. \
-        Should not allow code other than 0 and 1'
 
-    try:
+    # FileNotFoundError should be raised for non-existant files
+    with pytest.raises(FileNotFoundError):
         img_array = reducolor(2, 'tests/wrong.jpg')
-    except FileNotFoundError:
-        pass
-    else:
-        assert False, \
-            f'FileNotFoundError should be raised for non-existant files.'
+
     reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
     assert os.path.exists(
         'tests/mandrill_new.jpg'), \
@@ -107,23 +100,13 @@ def test_redusize():
         "images/mandrill.jpg", "images/reduced_mandrill.jpg", 20, 20).shape
     assert shape_small == (20, 20, 3)
     # exception error when the the width larger than the original width
-    try:
+    with pytest.raises(AssertionError):
         redusize(
             "images/mandrill.jpg", "images/reduced_mandrill.jpg", 300, 200)
-    except AssertionError:
-        pass
-    else:
-        assert False, f'AssertionError should be raised. \
-            Width of must be less than the original width'
     # exception error when the the height larger than the original height
-    try:
+    with pytest.raises(AssertionError):
         redusize(
             "images/mandrill.jpg", "images/reduced_mandrill.jpg", 200, 300)
-    except AssertionError:
-        pass
-    else:
-        assert False, f'AssertionError should be raised. \
-            Height of must be less than the original height'
     redusize(
         "images/mandrill.jpg", "images/reduced_mandrill.jpg", 200, 200)
     #  testing that the function writes the image to the provided output path

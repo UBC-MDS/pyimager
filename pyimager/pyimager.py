@@ -10,22 +10,22 @@ def circropper(input_path, margin):
     """
     Crops an image into a circle and leave some margin as you defined
 
-    Parameters:
+    Parameters
     -----------
     input_path: string
         The file path of the image to be cropped
     margin: float or int
         The distance between circle boundary and the original image boundary
 
-    Returns:
+    Returns
     --------
         A new cropped Image object
 
-    Examples:
+    Examples
     ---------
     >>> from pyimager import pyimager
     >>> circropper("bear.jpg", 0)
-    A Image is cropped to a circle with no margin
+    # An Image is cropped to a circle with no margin
     """
     # Test argument
     if type(input_path) != str and type(margin) != float and type(
@@ -84,12 +84,12 @@ def redusize(input_file, output_file, new_height, new_width):
     -------
     A new image with new width and height
 
-    Examples:
+    Examples
     ---------
     >>> from pyimager import pyimager
     >>> pyimager.redusize("bear.jpg", "result.png", 33, 33)
-    A file named "result.png"  with the width 33 and height 33 will be
-    generated in the current folder.
+    # A file named "result.png" with the width 33 and height 33 will be
+    # generated in the current folder.
     """
     # reading the image's original dimension
     image = plt.imread(input_file)
@@ -172,12 +172,12 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
         Array of pixels which comprises the original image with
         the applied filter
 
-    Examples:
+    Examples
     ---------
     >>> from pyimager import pyimager
     >>> pyimager.imgfilter("bear.jpg", "blur", 0.4)
-    An array of pixels resulting in an image with a
-    moderate blurred effect.
+    # An array of pixels resulting in an image with a
+    # moderate blurred effect.
     """
 
     # assert strength is an int or float between 0 and 1
@@ -255,10 +255,10 @@ def reducolor(style, input_path, output_path=None):
     """
     Reduce image colors to have the cartoonized effect
 
-    Parameters:
+    Parameters
     -----------
     style: int, either 0 or 1
-        0 for white and black colors
+        0 for white and black colors,
         1 for 8 colors
     input_path: string
         The file path of the image
@@ -266,13 +266,16 @@ def reducolor(style, input_path, output_path=None):
         if not None, the modified image will be saved
         in the provided folder path and name
 
-    Returns:
+    Returns
     --------
-    numpy.ndarray of the image and an image saved in the designated path
+    numpy.ndarray
+    the altered image and the image is saved in the designated path if \
+    output_path is provided
 
-    Examples:
+    Examples
     ---------
-    reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
+    >>> from pyimager import pyimager
+    >>> pyimager.reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
     """
 
     img = plt.imread(input_path) / 255
