@@ -6,7 +6,7 @@ from scipy.ndimage.filters import convolve
 import os
 
 
-def circropper(input_path, margin):
+def circropper(input_path, margin, output_path=None):
     """
     Crops an image into a circle and leave some margin as you defined
 
@@ -16,6 +16,8 @@ def circropper(input_path, margin):
         The file path of the image to be cropped
     margin: float or int
         The distance between circle boundary and the original image boundary
+    output_path: string
+        The path to the output image
 
     Returns
     --------
@@ -24,8 +26,7 @@ def circropper(input_path, margin):
     Examples
     ---------
     >>> from pyimager import pyimager
-    >>> circropper("bear.jpg", 0)
-    # An Image is cropped to a circle with no margin
+    >>> circropper('images/mandrill.jpg', 0, 'images/mandrill_circropper.png')
     """
     # Test argument
     if type(input_path) != str and type(margin) != float and type(
@@ -60,6 +61,10 @@ def circropper(input_path, margin):
     mask_array = np.array(mask)
     imgArray = np.dstack((imgArray, mask_array))
     Image.fromarray(imgArray)
+
+    if output_path is not None:
+        Image.fromarray(imgArray).save(output_path)
+        print(f'New image saved in {output_path}')
 
     return Image.fromarray(imgArray)
 
@@ -242,7 +247,7 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
 
     # crop image to remove boundary pixels
     output_array = output_array[offset_h:h - offset_h, offset_w:w - offset_w,
-                                :]
+                   :]
 
     if output_path is not None:
         Image.fromarray(output_array).save(output_path)

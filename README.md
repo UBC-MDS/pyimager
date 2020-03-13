@@ -56,11 +56,11 @@ We will use `mandrill.jpg` saved in the `images` folder of this repository for t
 
 ![mandill.jpg](images/mandrill.jpg)
 
-### `circropper(input_path, margin)` 
+### `circropper(input_path, margin, output_path=None)` 
 ```python
 from pyimager import pyimager
 
-pyimager.circropper("images/mandrill.jpg", 0)
+circropper(input_path='images/mandrill.jpg', margin=0, output_path='images/mandrill_circropper.png')
 ```
 ![images/mandrill_circropper.png](images/mandrill_circropper.png)
 ```python 
@@ -75,7 +75,7 @@ from pyimager import pyimager
 pyimager.imgfilter("images/mandrill.jpg", "blur", 0.4)
 ```
 
-### `reducolor(style, input_path, output_path = NULL)`  
+### `reducolor(style, input_path, output_path=None)`  
 
 ```python
 from pyimager import pyimager
