@@ -61,7 +61,7 @@ from pyimager import pyimager
 
 pyimager.circropper("images/mandrill.jpg", 0)
 ```
-
+![images/mandrill_circropper.png](images/mandrill_circropper.png)
 ```python 
 from pyimager import pyimager
 
