@@ -64,7 +64,7 @@ def test_reducolor():
     assert color_n == 8, f'Should return eight colors, \
     {color_n} colors are returned'
 
-    # Should not allow code other than 0 and 1, AssertionError should be raised
+    # Style must be either 0 or 1. AssertionError should be raised
     with pytest.raises(AssertionError):
         img_array = reducolor(2, 'tests/mandrill.jpg')
 
@@ -127,6 +127,8 @@ def test_imgfilter():
     # test assertion errors for strength input value
     with pytest.raises(ValueError):
         imgfilter('images/mandrill.jpg', filter_type='blur', strength=-1.5)
+
+    with pytest.raises(ValueError):
         imgfilter('images/mandrill.jpg', filter_type='blur', strength=1.5)
 
     # test assertion error for filter_type input value
