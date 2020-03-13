@@ -56,6 +56,7 @@ We will use `mandrill.jpg` saved in the `images` folder of this repository for t
 
 ![mandill.jpg](images/mandrill.jpg)
 
+### `circropper(input_path, margin)` 
 ```python
 from pyimager import pyimager
 
