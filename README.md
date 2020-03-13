@@ -52,6 +52,10 @@ pip install -i https://test.pypi.org/simple/ pyimager
 
 ## Usage Examples 
 
+We will use `mandrill.jpg` saved in the `images` folder of this repository for the examples.
+
+![mandill.jpg](images/mandrill.jpg)
+
 ```python
 from pyimager import pyimager
 
@@ -70,11 +74,20 @@ from pyimager import pyimager
 pyimager.imgfilter("images/mandrill.jpg", "blur", 0.4)
 ```
 
+### `reducolor(style, input_path, output_path = NULL)`  
+
 ```python
 from pyimager import pyimager
-
-pyimager.reducolor(0, 'images/mandrill.jpg', 'images/mandrill_new.jpg')
+#style 0, reduce the image color to white and black and save the new image mandrill_reducolor0.jpg in the images folder
+pyimager.reducolor(style=0, input_path='images/mandrill.jpg', output_path='images/mandrill_reducolor0.jpg')
 ```
+![mandrill_reducolor0.jpg](images/mandrill_reducolor0.jpg)
+
+```python
+#style 1, reduce the image color to 8 colors and save the new image mandrill_reducolor1.jpg in the images folder
+pyimager.reducolor(style=1, input_path='images/mandrill.jpg', output_path='images/mandrill_reducolor1.jpg')
+```
+![mandrill_reducolor0.jpg](images/mandrill_reducolor1.jpg)
 
 ```python
 from pyimager import pyimager
