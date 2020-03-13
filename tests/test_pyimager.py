@@ -9,7 +9,7 @@ def test_circropper():
     """
     unit test for the circropper function
     """
-    input_path = "./tests/milad.jpg"
+    input_path = "./tests/mandrill.jpg"
 
     # Test argument type
     try:
@@ -42,10 +42,13 @@ def test_circropper():
     # Test output
     img = Image.open(input_path).convert("RGB")
     imgArray_1 = np.array(img)
-    imgArray_2 = np.array(circropper(input_path, 0))
+    imgArray_2 = np.array(circropper(input_path, 0, 'images/mandrill_new.png'))
+    os.remove('images/mandrill_new.png')
     assert imgArray_1.shape[0] == imgArray_2.shape[0]
     assert imgArray_1.shape[1] == imgArray_2.shape[1]
     assert imgArray_1.shape[2] == imgArray_2.shape[2] - 1
+    assert os.path.exists('images/mandrill_new.png') is False, \
+        'File should not be saved'
     print("All tests pass! ")
 
 
