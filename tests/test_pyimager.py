@@ -127,6 +127,8 @@ def test_imgfilter():
     # test assertion errors for strength input value
     with pytest.raises(ValueError):
         imgfilter('images/mandrill.jpg', filter_type='blur', strength=-1.5)
+
+    with pytest.raises(ValueError):
         imgfilter('images/mandrill.jpg', filter_type='blur', strength=1.5)
 
     # test assertion error for filter_type input value
