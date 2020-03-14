@@ -60,20 +60,25 @@ We will use `mandrill.jpg` saved in the `images` folder of this repository for t
 ```python
 from pyimager import pyimager
 
-circropper(input_path='images/mandrill.jpg', margin=0, output_path='images/mandrill_circropper.png')
+pyimager.circropper(input_path='images/mandrill.jpg', margin=0, output_path='images/mandrill_circropper.png')
 ```
 ![images/mandrill_circropper.png](images/mandrill_circropper.png)
-```python 
+
+
+### `imgfilter(input_path, filter_type, strength, output_path=None)`
+```python
 from pyimager import pyimager
 
-pyimager.reducolor(0, 'images/mandrill.jpg', 'images/mandrill_new.jpg')
+pyimager.imgfilter(input_path="images/mandrill.jpg", filter_type="blur", strength=0.4, output_path="images/mandrill_blur.png")
 ```
+![images/mandrill_blur.png](images/mandrill_blur.png)
 
 ```python
 from pyimager import pyimager
 
-pyimager.imgfilter("images/mandrill.jpg", "blur", 0.4)
+pyimager.imgfilter(input_path="images/mandrill.jpg", filter_type="sharpen", strength=0.2, output_path="images/mandrill_sharpen.png")
 ```
+![images/mandrill_sharpen.png](images/mandrill_sharpen.png)
 
 ### `reducolor(style, input_path, output_path=None)`  
 
@@ -89,6 +94,8 @@ pyimager.reducolor(style=0, input_path='images/mandrill.jpg', output_path='image
 pyimager.reducolor(style=1, input_path='images/mandrill.jpg', output_path='images/mandrill_reducolor1.jpg')
 ```
 ![mandrill_reducolor0.jpg](images/mandrill_reducolor1.jpg)
+
+### `redusize(input_file, output_file, new_height, new_width)`
 
 ```python
 from pyimager import pyimager

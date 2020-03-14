@@ -180,7 +180,7 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
     Examples
     ---------
     >>> from pyimager import pyimager
-    >>> pyimager.imgfilter("bear.jpg", "blur", 0.4)
+    >>> pyimager.imgfilter("images/mandrill.jpg", "blur", 0.4)
     # An array of pixels resulting in an image with a
     # moderate blurred effect.
     """
