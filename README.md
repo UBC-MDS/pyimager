@@ -21,7 +21,7 @@ To contribute to this project, you must adhere to the terms outlined in our [Cod
 
 ## Overview:
 
-Want to edit an image in the shell instead of GUI applications? pyimager is a python package that provides a quick and easy way to do some simple image processing and graphic editing. Based on the main needs of graphic editing, the package integrates four functionalities. The functionalities include: reducing the size of an image, cropping an image into a circle, reducing the number of colours in an image, and applying cool filter effects. By inputing the path of the image, users can run any of these functions with one line of code to get the desired image.  
+Want to edit an image in the shell instead of GUI applications? `pyimager` is a python package that provides a quick and easy way to do some simple image processing and graphic editing. Based on the main needs of graphic editing, the package integrates four functionalities. The functionalities include: reducing the size of an image, cropping an image into a circle, reducing the number of colours in an image, and applying cool filter effects. By inputing the path of the image, users can run any of these functions with one line of code to get the desired image.  
 
 ## Our package in python ecosystem:
 
