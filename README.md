@@ -92,8 +92,11 @@ pyimager.reducolor(style=1, input_path='images/mandrill.jpg', output_path='image
 
 ```python
 from pyimager import pyimager
-pyimager.redusize("images/mandrill.jpg", "images/reduced_mandrill.jpg", 200, 300)
+# reduce the size from width 298 and height 298 to width 201 height 201
+pyimager.redusize("images/mandrill.jpg", "images/reduced_mandrill.jpg", 201, 200)
 ```
+![reduced_mandrill.jpg](images/reduced_mandrill.jpg)
+
 ## Documentation
 The official documentation is hosted on Read the Docs: <https://pyimager.readthedocs.io/en/latest/>
 
