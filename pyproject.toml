@@ -1,6 +1,10 @@
 [tool.poetry]
+readme = "README.md"
+homepage = "https://github.com/UBC-MDS/pyimager"
+repository = "https://github.com/UBC-MDS/pyimager"
+documentation = 'https:/pyimager.readthedocs.io'
 name = "pyimager"
-version = "0.1.0"
+version = "0.2.1"
 description = "pyimager contains functions to process and edit images"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
