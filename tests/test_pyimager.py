@@ -166,7 +166,7 @@ def test_imgfilter():
         'Output image should have equal or smaller dimensions than original ' \
         'image.'
 
-    # test that output image array dimensions are correct when using sharpen filter
+    # test output image array dimensions are correct when using sharpen filter
     output_test = imgfilter('images/mandrill.jpg',
                             filter_type='sharpen', strength=0.5)
     assert output_test.shape[0] == input_test.shape[0] - 2, \
