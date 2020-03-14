@@ -21,7 +21,7 @@ To contribute to this project, you must adhere to the terms outlined in our [Cod
 
 ## Overview:
 
-Want to edit an image in the shell instead of GUI applications? rimager is a R package that provides a quick and easy way to do some simple image processing and graphic editing. Based on the main needs of graphic editing, the package integrates four functionalities. The functionalities include: reducing the size of an image, cropping an image into a circle, reducing the number of colours in an image, and applying cool filter effects. By inputing the path of the image, users can run any of these functions with one line of code to get the desired image.  
+Want to edit an image in the shell instead of GUI applications? pyimager is a python package that provides a quick and easy way to do some simple image processing and graphic editing. Based on the main needs of graphic editing, the package integrates four functionalities. The functionalities include: reducing the size of an image, cropping an image into a circle, reducing the number of colours in an image, and applying cool filter effects. By inputing the path of the image, users can run any of these functions with one line of code to get the desired image.  
 
 ## Our package in python ecosystem:
 
@@ -109,7 +109,7 @@ The official documentation is hosted on Read the Docs: <https://pyimager.readthe
 
 ## Package in R
 
-We have a package with the same functionalities in R : `rimager`. See [here](https://github.com/UBC-MDS/rimager)  
+We have a package with the same functionalities in R : `pyimager`. See [here](https://github.com/UBC-MDS/pyimager)  
 
 ### Credits
 This package was created with Cookiecutter and the UBC-MDS/cookiecutter-ubc-mds project template, modified from the [pyOpenSci/cookiecutter-pyopensci](https://github.com/pyOpenSci/cookiecutter-pyopensci) project template and the [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage).
