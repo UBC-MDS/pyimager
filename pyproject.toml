@@ -8,10 +8,6 @@ version = "1.0.0"
 description = "pyimager contains functions to process and edit images"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
-readme = "README.md"
-homepage = "https://github.com/UBC-MDS/pyimager"
-repository = "https://github.com/UBC-MDS/pyimager"
-documentation = 'https://pyimager.readthedocs.io'
 
 [tool.poetry.dependencies]
 python = "^3.7"
