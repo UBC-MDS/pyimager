@@ -106,35 +106,35 @@ def test_redusize():
     '''
     # test assertion error for even width and height
     shape_even = np.array(redusize(
-        "images/mandrill.jpg", "images/test_reduced_mandrill.jpg", 200, 200)).shape
+        "images/mandrill.jpg", "images/redu_mandrill.jpg", 200, 200)).shape
     assert shape_even == (200, 200, 3)
     # test assertion error for odd width and height
     shape_odd = np.array(redusize(
-        "images/mandrill.jpg", "images/test_reduced_mandrill.jpg", 205, 210)).shape
+        "images/mandrill.jpg", "images/redu_mandrill.jpg", 205, 210)).shape
     assert shape_odd == (205, 210, 3)
     # test assertion error for when width and the height are not the same
     diff_dimension = np.array(redusize(
-        "images/mandrill.jpg", "images/test_reduced_mandrill.jpg", 201, 202)).shape
+        "images/mandrill.jpg", "images/redu_mandrill.jpg", 201, 202)).shape
     assert diff_dimension == (201, 202, 3)
     # test assertion error for very small output image
     shape_small = np.array(redusize(
-        "images/mandrill.jpg", "images/test_reduced_mandrill.jpg", 20, 20)).shape
+        "images/mandrill.jpg", "images/redu_mandrill.jpg", 20, 20)).shape
     assert shape_small == (20, 20, 3)
     # exception error when the the width larger than the original width
     with pytest.raises(AssertionError):
         redusize(
-            "images/mandrill.jpg", "images/test_reduced_mandrill.jpg", 300, 200)
+            "images/mandrill.jpg", "images/redu_mandrill.jpg", 300, 200)
     # exception error when the the height larger than the original height
     with pytest.raises(AssertionError):
         redusize(
-            "images/mandrill.jpg", "images/test_reduced_mandrill.jpg", 200, 300)
+            "images/mandrill.jpg", "images/reduc_mandrill.jpg", 200, 300)
     redusize(
-        "images/mandrill.jpg", "images/test_reduced_mandrill.jpg", 200, 200)
+        "images/mandrill.jpg", "images/redu_mandrill.jpg", 200, 200)
     #  testing that the function writes the image to the provided output path
     assert os.path.exists(
         "images/reduced_mandrill.jpg"), \
         'No imaged found in the output path'
-    os.remove("images/test_reduced_mandrill.jpg")
+    os.remove("images/redu_mandrill.jpg")
 
 
 def test_imgfilter():
