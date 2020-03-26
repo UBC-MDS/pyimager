@@ -332,7 +332,7 @@ def reducolor(input_path, style, output_path=None):
     if output_path == 'auto':
         output_path = input_path
         while os.path.exists(output_path):
-            output_path = re.sub(r'\.[jp][ pn]g$', '_reducolor.jpg', 
+            output_path = re.sub(r'\.[jp][ pn]g$', '_reducolor.jpg',
                                  output_path)
         imsave(f'{output_path}', new_img)
         print(f'New image saved in {output_path}')
