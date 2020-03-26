@@ -147,7 +147,10 @@ def redusize(input_path, output_path, new_height, new_width):
     assert (image.shape[1] == new_width)
 
     plt.imsave(output_path, image)
-    return image
+
+    img = Image.open(output_path).convert("RGB") # return an image
+
+    return img
 
 
 def imgfilter(input_path, filter_type, strength, output_path=None):
