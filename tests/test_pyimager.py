@@ -128,8 +128,6 @@ def test_redusize():
     with pytest.raises(AssertionError):
         redusize(
             "images/mandrill.jpg", "images/reduc_mandrill.jpg", 200, 300)
-    redusize(
-        "images/mandrill.jpg", "images/redu_mandrill.jpg", 200, 200)
     #  testing that the function writes the image to the provided output path
     assert os.path.exists(
         "images/reduced_mandrill.jpg"), \
