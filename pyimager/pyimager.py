@@ -4,6 +4,7 @@ from matplotlib.image import imsave
 import matplotlib.pyplot as plt
 from scipy.ndimage.filters import convolve
 import os
+import re
 
 
 def circropper(input_path, margin, output_path=None):
@@ -256,47 +257,64 @@ def imgfilter(input_path, filter_type, strength, output_path=None):
     return output_array
 
 
-def reducolor(style, input_path, output_path=None):
+def reducolor(input_path, style, output_path=None):
     """
     Reduce image colors to have the cartoonized effect
 
     Parameters
     -----------
-    style: int, either 0 or 1
-        0 for white and black colors,
-        1 for 8 colors
     input_path: string
         The file path of the image
+    style: list,
+        either two colors from ['white', 'black', 'red', 'green', 'blue', \
+        'yellow', 'pink', 'aqua']
+        or ['eight'] for eight colors
     output_path: string or None(default)
-        if not None, the modified image will be saved
-        in the provided folder path and name
+        if None, the modified image will not be saved
+        if 'auto', the modified image will be saved in the same folder \
+        as the image
+        or the modified image will be saved in the provided folder path
 
     Returns
     --------
     numpy.ndarray
     the altered image and the image is saved in the designated path if \
-    output_path is provided
+    output_path is not None
 
     Examples
     ---------
     >>> from pyimager import pyimager
-    >>> pyimager.reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
+    >>> pyimager.reducolor('tests/mandrill.jpg', ['eight'], 'auto')
+    >>> pyimager.reducolor('tests/mandrill.jpg', ['white', 'black'], 'auto')
     """
+
+    color_dict = {'white': [1, 1, 1], 'black': [0, 0, 0], 'red': [1, 0, 0],
+                  'green': [0, 1, 0], 'blue': [0, 0, 1], 'yellow': [1, 1, 0],
+                  'pink': [1, 0.686, 0.843], 'aqua': [0, 1, 1]}
 
     img = plt.imread(input_path) / 255
 
-    assert style == 0 or style == 1, f'{style} is invalid for the style ' \
-                                     f'argument.\n Please enter 0 for ' \
-                                     f'black and white color, 1 for eight ' \
-                                     f'color scales '
+    assert isinstance(style, list), 'style input must be a list'
 
-    if style == 0:  # black and white color
+    assert len(style) == 1 or len(style) == 2, f'style list ' \
+                                               f'must be of length 1 or 2'
+
+    if len(style) == 2:  # two color
+        assert style[0] in color_dict.keys(), f'{style[0]} is not ' \
+                                              f'available, please choose ' \
+                                              f'from {list(color_dict.keys())}'
+        assert style[1] in color_dict.keys(), f'{style[1]} is not available,' \
+                                              f' please choose ' \
+                                              f'from {list(color_dict.keys())}'
+        assert style[0] != style[1], f'Two colors must be different.'
         new_img = img.copy()
-        new_img[(img.mean(axis=2) < 0.5), :] = np.array(
-            [0, 0, 0])  # less than gray
-        new_img[(img.mean(axis=2) >= 0.5), :] = np.array([1, 1, 1])
+        new_img[(img.mean(axis=2) < np.median(img)), :] = np.array(
+            color_dict[style[0]])
+        new_img[(img.mean(axis=2) >= np.median(img)), :] = np.array(
+            color_dict[style[1]])
 
-    elif style == 1:
+    elif len(style) == 1:
+        assert style[0] == 'eight', 'Please put \'eight\' for eight colors'
         red = img[:, :, 0]
         red[red < np.median(red)] = np.min(red)
         red[red >= np.median(red)] = np.max(red)
@@ -311,8 +329,15 @@ def reducolor(style, input_path, output_path=None):
         new_img[:, :, 1] = green
         new_img[:, :, 2] = blue
 
-    if output_path is not None:
+    if output_path == 'auto':
+        output_path = input_path
+        while os.path.exists(output_path):
+            output_path = re.sub(r'\.[jp][ pn]g$', '_reducolor.jpg', 
+                                 output_path)
+        imsave(f'{output_path}', new_img)
+        print(f'New image saved in {output_path}')
+    elif output_path is not None:
         imsave(f'{output_path}', new_img)
         print(f'New image saved in {output_path}')
 
-    return new_img
+    return Image.fromarray((new_img * 255).astype(np.uint8))

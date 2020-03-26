@@ -56,30 +56,48 @@ def test_reducolor():
     '''
     Unit test for the reducolor function
     '''
-    img_array = reducolor(0, 'tests/mandrill.jpg')
+    img_array = np.array(reducolor('tests/mandrill.jpg', ['white', 'black']))
     color_n = len(np.unique(img_array.reshape(
         np.prod(img_array.shape[:2]), 3), axis=0))
     assert color_n == 2, f'Should return two colors only, \
     {color_n} colors are returned'
-    img_array = reducolor(1, 'tests/mandrill.jpg')
+    img_array = np.array(reducolor('tests/mandrill.jpg', ['eight']))
     color_n = len(np.unique(img_array.reshape(
         np.prod(img_array.shape[:2]), 3), axis=0))
     assert color_n == 8, f'Should return eight colors, \
     {color_n} colors are returned'
 
-    # Style must be either 0 or 1. AssertionError should be raised
+    # Style must be a list of length 1 or 2
     with pytest.raises(AssertionError):
-        img_array = reducolor(2, 'tests/mandrill.jpg')
+        reducolor('tests/mandrill.jpg', 'eight')
+    with pytest.raises(AssertionError):
+        reducolor('tests/mandrill.jpg', ['white', 'black', 'red'])
+
+    # Style list strings must be a valid input
+    with pytest.raises(AssertionError):
+        reducolor('tests/mandrill.jpg', ['eigh'])
+    with pytest.raises(AssertionError):
+        reducolor('tests/mandrill.jpg', ['whit', 'black'])
+    with pytest.raises(AssertionError):
+        reducolor('tests/mandrill.jpg', ['white', 'blac'])
+    with pytest.raises(AssertionError):
+        reducolor('tests/mandrill.jpg', ['white', 'white'])
 
     # FileNotFoundError should be raised for non-existant files
     with pytest.raises(FileNotFoundError):
-        img_array = reducolor(2, 'tests/wrong.jpg')
+        img_array = reducolor('tests/wrong.jpg', ['eight'])
 
-    reducolor(0, 'tests/mandrill.jpg', 'tests/mandrill_new.jpg')
+    reducolor('tests/mandrill.jpg', ['eight'], 'tests/mandrill_new.jpg')
     assert os.path.exists(
         'tests/mandrill_new.jpg'), \
         'File should be saved to the provided output path'
     os.remove('tests/mandrill_new.jpg')
+
+    reducolor('tests/mandrill.jpg', ['eight'], 'auto')
+    assert os.path.exists(
+        'tests/mandrill_reducolor.jpg'), \
+        'File should be saved to the same folder'
+    os.remove('tests/mandrill_reducolor.jpg')
 
 
 def test_redusize():
