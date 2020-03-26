@@ -69,16 +69,16 @@ def circropper(input_path, margin, output_path=None):
     return Image.fromarray(imgArray)
 
 
-def redusize(input_file, output_file, new_height, new_width):
+def redusize(input_path, output_path, new_height, new_width):
     """
     A function to reduce the dimension of a given image by removing vertical
     and horizontal seams
 
     Parameters
     ----------
-    input_file : str
+    input_path : str
         path to the input image
-    output_file : str
+    output_path : str
         path to the output image
     new_width : int
         new width the output image
@@ -97,7 +97,7 @@ def redusize(input_file, output_file, new_height, new_width):
     # generated in the current folder.
     """
     # reading the image's original dimension
-    image = plt.imread(input_file)
+    image = plt.imread(input_path)
     width = image.shape[1]
     height = image.shape[0]
     # asserting that the new dimensions are less than the original dimensions
@@ -145,7 +145,7 @@ def redusize(input_file, output_file, new_height, new_width):
     assert (image.shape[0] == new_height)
     assert (image.shape[1] == new_width)
 
-    plt.imsave(output_file, image)
+    plt.imsave(output_path, image)
     return image
 
 
